@@ -10,7 +10,8 @@
     "build": "rm -rf dist && rollup -c",
     "size": "size-limit",
     "test": "jest",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "@storybook/addon-links": "3.3.14",
     "@storybook/addons": "3.3.14",
     "@storybook/react": "3.3.14",
+    "@storybook/storybook-deployer": "2.3.0",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.3",

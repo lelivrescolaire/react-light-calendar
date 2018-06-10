@@ -68,7 +68,7 @@ import '@lls/react-light-calendar/dist/index.css'
 
 ## Demo 👀 :
 
-A [storybook](https://github.com/storybooks/storybook) demo is avaliable [here]().
+A [storybook](https://lelivrescolaire.github.io/react-light-calendar) demo is avaliable [here]().
 
 ## Compatibility ✅ :
 
