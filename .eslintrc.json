@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["standard", "plugin:react/recommended"],
+  "rules": {
+    "curly": ["error", "multi-or-nest"]
+  },
+  "settings": {
+    "react": {
+      "version": "15.6.2"
+    }
+  }
+}

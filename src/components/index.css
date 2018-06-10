@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.rlc-calendar{
+  width: 280px;
+  border: 1px solid #E5E5E5;
+  -webkit-box-shadow: 0px 0px 13px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 13px -4px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 13px -4px rgba(0,0,0,0.75);
+  color: #565656;
+}
+
+.rlc-days-label, .rlc-days{
+  width: 100%;
+}
+
+.rlc-days-label{
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.rlc-days{
+  font-size: 12px;
+}
+
+.rlc-day-label, .rlc-day{
+  display: inline-flex;
+  display: -ms-inline-flex;
+  display: -webkit-inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.rlc-day{
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.rlc-day-today{
+  color: #FFF;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.rlc-day-default:hover{
+  background-color: #f3f3f3;
+  color: #868686;
+  border-radius: 50%;
+}
+
+.rlc-day-out-of-month{
+  color: #d2d2d2;
+}
+
+.rlc-day-selected,
+.rlc-day-start-selection,
+.rlc-day-end-selection,
+.rlc-day-inside-selection{
+  color: #FFF;
+  background-color: #40aec7;
+}
+
+.rlc-day-selected:hover,
+.rlc-day-start-selection:hover,
+.rlc-day-end-selection:hover,
+.rlc-day-inside-selection:hover{
+  background-color: #2391ab;
+}
+
+.rlc-day-selected{
+  border-radius: 50%;
+}
+
+.rlc-day-start-selection{
+  border-radius: 50% 0px 0px 50%;
+}
+
+.rlc-day-end-selection{
+  border-radius: 0px 50% 50% 0px;
+}
+
+.rlc-day-inside-selection{
+  border-radius: 0%;
+}
+
+.rlc-day-disabled{
+  background-color: #f5f5f5;
+  border-radius: 0px;
+  cursor: default;
+  color: #cecece;
+}
+
+.rlc-day-disabled:hover{
+  background-color: #f5f5f5;
+}
+
+.rlc-month-and-year-wrapper{
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #E5E5E5;
+  border-top: 1px solid #E5E5E5;
+  padding: 10px 0px;
+}
+
+.rlc-month-and-year{
+  flex-grow: 2;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.rlc-navigation-button-wrapper{
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  justify-content: space-around;
+  flex-grow: 1;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.rlc-navigation-button{
+  cursor: pointer;
+}
+
+.rlc-details{
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+}
+
+.rlc-date-details-wrapper{
+  flex-grow: 1;
+  margin: 5px 0px;
+}
+
+.rlc-date-details{
+  display: flex;
+  display: -ms-flex;
+  display: -webkit-flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.rlc-date-number{
+  font-size: 35px;
+  padding: 0px 5px;
+}
+
+.rlc-date-day-month-year{
+  font-size: 12px;
+}
+
+.rlc-detail-day{
+  margin-bottom: 2px;
+}
+
+.rlc-detail-month-year{
+  text-transform: uppercase;
+}
+
+.rlc-date-time-selects{
+  padding: 0px 10px;
+}
+
+.rlc-separator{
+  margin: 0px 5px;
+}
