@@ -168,7 +168,7 @@ If time input must be displayed.
 * Required : *true*
 * Available since : *v1.0.0*
 
-Days name.
+Days name, starting with Monday.
 
 ---------------------------------------
 
@@ -178,7 +178,7 @@ Days name.
 * Required : *true*
 * Available since : *v1.0.0*
 
-Months name.
+Months name, starting with January.
 
 ---------------------------------------
 
