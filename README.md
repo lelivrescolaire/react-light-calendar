@@ -2,7 +2,7 @@
 
 🗓 A lightweight calendar for React (~4 kb)
 
-![](https://travis-ci.org/lelivrescolaire/@lls/react-light-calendar.svg?branch=master)
+![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
 
 ---------------------------------------
 
@@ -70,7 +70,7 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 ## Demo 👀 :
 
-A [storybook](https://github.com/storybooks/storybook) demo is avaliable [here](https://lelivrescolaire.github.io/react-light-calendar).
+A [storybook](https://github.com/storybooks/storybook) demo is available [here](https://lelivrescolaire.github.io/react-light-calendar/?selectedKind=Calendar&selectedStory=onChange&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel).
 
 ## Compatibility ✅ :
 
@@ -96,7 +96,7 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 
 ## API 📖 :
 
-The following list represent all avaliable `@lls/react-light-calendar`'s props.
+The following list represent all available `@lls/react-light-calendar`'s props.
 
 ### startDate :
 * Type : *Int*
@@ -167,8 +167,8 @@ If time input must be displayed.
 ### dayLabels :
 * Type : *Array[String]*
 * Default value : `['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']`
-* Required : *true*
-* Avaliable since : *v1.0.0*
+* Required : *false*
+* Available since : *v1.0.0*
 
 Days name.
 
@@ -177,8 +177,8 @@ Days name.
 ### monthLabels :
 * Type : *Array[String]*
 * Default value : `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
-* Required : *true*
-* Avaliable since : *v1.0.0*
+* Required : *false*
+* Available since : *v1.0.0*
 
 Months name.
 
@@ -259,10 +259,14 @@ npm run size
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
 
----------------------------------------
 
-<center>
-Developped by
-
-![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)
-</center>
+<div align="center">
+	<br/>
+	<br/>
+	Developped by
+	<br/>
+	<br/>
+	<a href="https://www.lelivrescolaire.fr/">
+		<img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png" width="200" alt="Lelivrescolaire.fr">
+	</a>
+</div>
