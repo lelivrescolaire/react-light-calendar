@@ -14,7 +14,7 @@ export const MONTH_LABELS = Object.freeze(['Janvier', 'Fevrier', 'Mars', 'Avril'
 
 test('Actions - Click on tommorow day', () => {
   const onChange = spy()
-  const calendar = mount(<Calendar onChange={onChange} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar onChange={onChange} />)
   const today = new Date()
   const tommorow = today.setDate(today.getDate() + 1)
   const tommorowDay = calendar.find(`.rlc-day-${getDateWithoutTime(tommorow)}`)
@@ -27,7 +27,7 @@ test('Actions - Click on tommorow day', () => {
 
 test('Actions - Select range yesterday to tommorow and before today to yesterday', () => {
   const onChange = spy()
-  const calendar = mount(<Calendar onChange={onChange} range dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar onChange={onChange} range />)
 
   // Yesterday to tommorow
   const yesterday = new Date().setDate(new Date().getDate() - 1)
@@ -69,7 +69,7 @@ test('Actions - Select range yesterday to tommorow and before today to yesterday
 
 test('Actions - Click on disabled day', () => {
   const onChange = spy()
-  const calendar = mount(<Calendar onChange={onChange} disableDates={date => date < new Date().getTime()} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar onChange={onChange} disableDates={date => date < new Date().getTime()} />)
 
   const today = new Date()
   const yesterday = today.setDate(today.getDate() - 1)
@@ -83,7 +83,7 @@ test('Actions - Click on disabled day', () => {
 test('Actions - Change time', () => {
   const onChange = spy()
   // Set startDate to Jeudi 27 Octobre 1994 at 00:00
-  const calendar = mount(<Calendar onChange={onChange} startDate={783212400000} displayTime dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar onChange={onChange} startDate={783212400000} displayTime />)
   const hours = calendar.find('.rlc-date-time-selects').childAt(0)
   const minutes = calendar.find('.rlc-date-time-selects').childAt(2)
 
@@ -101,7 +101,7 @@ test('Actions - Change time', () => {
 test('Actions - Propage time when date changed', () => {
   const onChange = spy()
   // Vendredi 09 Octobre 1992 at 2:30
-  const calendar = mount(<Calendar startDate={718594200000} onChange={onChange} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar startDate={718594200000} onChange={onChange} />)
   const newDate = calendar.find('.rlc-day-718758000000') // Click on 11 Octobre 1992
 
   newDate.simulate('click')

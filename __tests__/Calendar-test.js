@@ -8,11 +8,8 @@ import Calendar from '../src'
 // Utils
 import { getDateWithoutTime } from '../src/utils'
 
-export const DAY_LABELS = Object.freeze(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
-export const MONTH_LABELS = Object.freeze(['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aûot', 'Septembre', 'Octobre', 'Novembre', 'Décembre'])
-
 test('Default - Current day element has currect classname', () => {
-  const calendar = shallow(<Calendar dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = shallow(<Calendar />)
   const classname = `.rlc-day-${getDateWithoutTime(new Date().getTime())}`
   const currentDay = calendar.find(classname)
 
@@ -21,7 +18,7 @@ test('Default - Current day element has currect classname', () => {
 
 test('Default - Set startDate prop', () => {
   // Set startDate to Jeudi 27 Octobre 1994
-  const calendar = mount(<Calendar startDate={783212400000} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar startDate={783212400000} />)
   const startDay = calendar.find('.rlc-day-783212400000')
 
   expect(startDay.hasClass('rlc-day-selected')).to.equal(true)
@@ -30,14 +27,14 @@ test('Default - Set startDate prop', () => {
   const number = calendar.find('.rlc-date-number')
   const month = calendar.find('.rlc-detail-month-year')
 
-  expect(day.text()).to.equal('Jeudi')
+  expect(day.text()).to.equal('Thursday')
   expect(number.text()).to.equal('27')
-  expect(month.text()).to.equal('Octobre 1994')
+  expect(month.text()).to.equal('October 1994')
 })
 
 test('Default - Set startDate and endDate props', () => {
   // Set startDate to Vendredi 09 Octobre 1992 and endDate to Dimanche 11 Octobre 1992
-  const calendar = mount(<Calendar startDate={718585200000} endDate={718758000000} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} range />)
+  const calendar = mount(<Calendar startDate={718585200000} endDate={718758000000} range />)
   const startDay = calendar.find('.rlc-day-718585200000')
   const endDay = calendar.find('.rlc-day-718758000000')
   expect(startDay.hasClass('rlc-day-start-selection')).to.equal(true)
@@ -54,18 +51,18 @@ test('Default - Set startDate and endDate props', () => {
   const endDetailNumber = endDetail.find('.rlc-date-number')
   const endDetailMonth = endDetail.find('.rlc-detail-month-year')
 
-  expect(startDetailDay.text()).to.equal('Vendredi')
+  expect(startDetailDay.text()).to.equal('Friday')
   expect(startDetailNumber.text()).to.equal('9')
-  expect(startDetailMonth.text()).to.equal('Octobre 1992')
+  expect(startDetailMonth.text()).to.equal('October 1992')
 
-  expect(endDetailDay.text()).to.equal('Dimanche')
+  expect(endDetailDay.text()).to.equal('Sunday')
   expect(endDetailNumber.text()).to.equal('11')
-  expect(endDetailMonth.text()).to.equal('Octobre 1992')
+  expect(endDetailMonth.text()).to.equal('October 1992')
 })
 
 test('Default - Set startDetail and displayTime props', () => {
   // Set startDate to Vendredi 08 Juillet 2016 at 18:00
-  const calendar = mount(<Calendar startDate={1467993600000} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} displayTime />)
+  const calendar = mount(<Calendar startDate={1467993600000} displayTime />)
   const startDay = calendar.find('.rlc-day-1467928800000')
 
   expect(startDay.hasClass('rlc-day-selected')).to.equal(true)
@@ -76,9 +73,9 @@ test('Default - Set startDetail and displayTime props', () => {
   const hours = calendar.find('.rlc-date-time-selects').childAt(0)
   const minutes = calendar.find('.rlc-date-time-selects').childAt(2)
 
-  expect(day.text()).to.equal('Vendredi')
+  expect(day.text()).to.equal('Friday')
   expect(number.text()).to.equal('8')
-  expect(month.text()).to.equal('Juillet 2016')
+  expect(month.text()).to.equal('July 2016')
   expect(hours.props().value).to.equal(18)
   expect(minutes.props().value).to.equal(0)
 })
@@ -87,7 +84,7 @@ test('Default - Set disableDates prop', () => {
   // Disable all passed days
   const today = new Date()
   const yesterday = today.setDate(today.getDate() - 1)
-  const calendar = mount(<Calendar disableDates={date => date < new Date().getTime()} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar disableDates={date => date < new Date().getTime()} />)
   const yesterdayDay = calendar.find(`.rlc-day-${getDateWithoutTime(yesterday)}`)
 
   expect(yesterdayDay.hasClass('rlc-day-disabled')).to.equal(true)
@@ -95,7 +92,7 @@ test('Default - Set disableDates prop', () => {
 
 
 test('Default - Set custom props', () => {
-  const calendar = mount(<Calendar custom={{ id: 'random-id' }} dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} />)
+  const calendar = mount(<Calendar id='random-id' />)
   const calendarElement = calendar.find('.rlc-calendar')
 
   expect(calendarElement.prop('id')).to.equal('random-id')

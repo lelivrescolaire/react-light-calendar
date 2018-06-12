@@ -3,10 +3,7 @@ import React, { Component } from 'react'
 import { storiesOf } from '@storybook/react'
 import ReactLightCalendar from '../index'
 
-export const DAY_LABELS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-export const MONTH_LABELS = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aûot', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-
-const Calendar = props => <ReactLightCalendar dayLabels={DAY_LABELS} monthLabels={MONTH_LABELS} {...props} />
+const Calendar = props => <ReactLightCalendar {...props} />
 
 const DefaultValueRange = () => {
   const date = new Date()

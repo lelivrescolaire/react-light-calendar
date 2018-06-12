@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { number, func, bool, arrayOf, object, string } from 'prop-types'
+import { number, func, bool, arrayOf, string } from 'prop-types'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut,
   extendTime, dayAreSame, getDateWithoutTime } from '../utils'
 
@@ -14,7 +14,7 @@ class Calendar extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      ...initMonth(this.props.startDate),
+      ...initMonth(props.startDate),
       ...parseRange(props.startDate, props.endDate, props.range)
     }
   }
@@ -53,12 +53,8 @@ class Calendar extends Component {
   nextYear = () => this.changeMonth({ yearOffset: 1 })
   nextMonth = () => this.changeMonth({ monthOffset: 1 })
 
-  update = ({ startDate, endDate }) => {
-    this.props.onChange(
-      startDate || this.props.startDate,
-      endDate || this.props.endDate
-    )
-  }
+  update = ({ startDate, endDate }) =>
+    this.props.onChange(startDate || this.props.startDate, endDate || this.props.endDate)
 
   getClassNames = day => {
     const { firstMonthDay, lastMonthDay, startDate, endDate } = this.state
@@ -83,14 +79,14 @@ class Calendar extends Component {
 
   render = () => {
     const { firstDayToDisplay, lastDayToDisplay,
-      startDate, endDate, month, year } = this.state
-    const { disableDates, displayTime, dayLabels, monthLabels, custom } = this.props
+      startDate: sDate, endDate: eDate, month, year } = this.state
+    const { startDate, endDate, onChange, range, disableDates, displayTime, dayLabels, monthLabels, ...props } = this.props
 
     return (
-      <div className="rlc-calendar" { ...custom }>
+      <div className="rlc-calendar" {...props}>
         <Details
-          startDate={startDate}
-          endDate={endDate}
+          startDate={sDate}
+          endDate={eDate}
           dayLabels={dayLabels}
           monthLabels={monthLabels}
           displayTime={displayTime}
@@ -125,17 +121,18 @@ class Calendar extends Component {
   }
 }
 
-Calendar.defaultProps = {
+const DEFAULT_PROPS = {
   startDate: null,
   endDate: null,
   onChange: () => {},
   range: false,
   disableDates: () => false,
   displayTime: false,
-  dayLabels: [],
-  monthLabels: [],
-  custom: {}
+  dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 }
+
+Calendar.defaultProps = DEFAULT_PROPS
 
 Calendar.propTypes = {
   startDate: number,
@@ -145,8 +142,7 @@ Calendar.propTypes = {
   disableDates: func,
   displayTime: bool,
   dayLabels: arrayOf(string).isRequired,
-  monthLabels: arrayOf(string).isRequired,
-  custom: object
+  monthLabels: arrayOf(string).isRequired
 }
 
 export default Calendar
