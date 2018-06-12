@@ -6,7 +6,7 @@
 
 ---------------------------------------
 
-`@lls/react-light-calendar` is a **tiny** calendar component which **does not depend** on any date lib.
+`@lls/react-light-calendar` is a **tiny** calendar component which **does NOT depend** on any date lib.
 `@lls/react-light-calendar` use **timestamp** format date which allows it to be coupled with any date lib.
 
 ![](./images/image-1.gif)
@@ -37,10 +37,10 @@
 
 ## Why 🤔 :
 
-Because most calendar components depend on **heavy** date library. This make the bundle become **very heavy** and if forces you to his **date library dependence**.
-This can be a hug problem on big projects that already have had **a lot of dependencies**, especially for projects that use **another date library**.
+Because most calendar components depend on **heavy** date library. This make the bundle become **very big** and if forces you to his **date library dependence**.
+This can be a huge problem on big projects that already have had **a lot of dependencies**, especially for projects that use **another date library**.
 
-The purpose of `@lls/react-light-calendar` is to propose a **pretty minimal** and **powerful** component to be able to be used on any project.
+The purpose of `@lls/react-light-calendar` is to propose a **minimalistic** and **powerful** component to be able to be used on any project.
 
 ## How to use ✍️ :
 
@@ -99,20 +99,20 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 The following list represent all avaliable `@lls/react-light-calendar`'s props.
 
 ### startDate :
-* Type : *Int*
+* Type : *Int* (timestamp)
 * Default value : *null*
 * Required : *false*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
 Default date (timestamp) selected or first date selected if [range](#range-) is `true`.
 
 ---------------------------------------
 
 ### endDate :
-* Type : *Int*
+* Type : *Int* (timestamp)
 * Default value : *null*
 * Required : *false*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
 Last date selected. [range](#range-) must be `true`.
 
@@ -122,9 +122,9 @@ Last date selected. [range](#range-) must be `true`.
 * Type : *Boolean*
 * Default value : *false*
 * Required : *false*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
-If range selection is enabled.
+Specifiy if range selection is enabled.
 
 ---------------------------------------
 
@@ -132,7 +132,7 @@ If range selection is enabled.
 * Type : *Function(startDate [Int], endDate [Int])*
 * Default value : *empty function*
 * Required : *false*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
 This function is called every time a day is selected/updated.
 
@@ -142,9 +142,9 @@ This function is called every time a day is selected/updated.
 * Type : *Function(date [Int])*
 * Default value : *empty function*
 * Required : *false*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
-This function discribe wich days must be disabled (when disabled, day can't be selected).
+This function describe wich days must be disabled (when disabled, a day can't be selected).
 
 Example, disabled all passed day :
 
@@ -158,7 +158,7 @@ Example, disabled all passed day :
 * Type : *Boolean*
 * Default value : *false*
 * Required : *false*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
 If time input must be displayed.
 
@@ -168,9 +168,9 @@ If time input must be displayed.
 * Type : *Array[String]*
 * Default value : `['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']`
 * Required : *true*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
-Days name.
+Days name, starting with Monday.
 
 ---------------------------------------
 
@@ -178,9 +178,9 @@ Days name.
 * Type : *Array[String]*
 * Default value : `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
 * Required : *true*
-* Avaliable since : *v1.0.0*
+* Available since : *v1.0.0*
 
-Months name.
+Months name, starting with January.
 
 ## Examples 📋 :
 
@@ -220,15 +220,15 @@ class Calendar extends Component {
 
 ### Good practice example :
 
-The best way to avoid massive code and code duolication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
+The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
-A fully example is avaliable [here](./example/GOODPRACTICE.md).
+A fully example is Available [here](./example/GOODPRACTICE.md).
 
 ---------------------------------------
 
 ### Input example :
 
-`react-light-component` is delivred with only on component : a calendar.
+`react-light-component` is delivered with only one component : a calendar.
 If you want to use it like a datetime input, you can follow this [example](./example/INPUT.md).
 
 ![](./images/image-2.gif)
@@ -261,8 +261,4 @@ npm run size
 
 ---------------------------------------
 
-<center>
-Developped by
-
-![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)
-</center>
+Developped by ![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)
