@@ -13,28 +13,27 @@
 
 ## Navigation 🗺️ :
 
-* 🤔 [Why](#why-)
-* ✍️ [How to use](#how-to-use-)
-* 👀 [Demo](#demo-)
-* ✅ [Compatibility](#compatibility-)
-	* [react / react-dom](#react-/-react-dom-)
-	* [Browsers](#broswersgit-)
-* 📖 [API](#api-)
-	* [startDate](#startDate-)
-	* [endDate](#endDate-)
-	* [range](#endDate-)
-	* [onChange](#onChange-)
-	* [disableDates](#disableDates-)
-	* [displayTime](#displayTime-)
-	* [dayLabels](#dayLabels-)
-	* [monthLabels](#monthLabels-)
-	* [custom](#custom-)
-* 📋 [Examples](#examples-)
-	* [Basic example](#basic-example-) 
-	* [Good practice example](#good-practice-example-) 
+* 🤔 [Why](#why--)
+* ✍️ [How to use](#how-to-use--)
+* 👀 [Demo](#demo--)
+* ✅ [Compatibility](#compatibility--)
+	* [react / react-dom](#react--react-dom-)
+	* [Browsers](#broswers-)
+* 📖 [API](#api--)
+	* [startDate](#startdate-)
+	* [endDate](#enddate-)
+	* [range](#enddate-)
+	* [onChange](#onchange-)
+	* [disableDates](#disabledates-)
+	* [displayTime](#displaytime-)
+	* [dayLabels](#daylabels-)
+	* [monthLabels](#monthlabels-)
+* 📋 [Examples](#examples--)
+	* [Basic example](#basic-example-)
+	* [Good practice example](#good-practice-example-)
 	* [Input example](#input-example-)
-* 💻 [Development](#development-)
-* 🖋 [License](#license-)
+* 💻 [Development](#development--)
+* 🖋 [License](#license--)
 
 ## Why 🤔 :
 
@@ -61,14 +60,17 @@ Use it :
 
 ```javascript
 import Calendar from '@lls/react-light-calendar'
-import '@lls/react-light-calendar/dist/index.css'
+import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 <Calendar startDate={startDate} onChange={this.onChange} />
 ```
 
+❗️Notice the style `import`. If you want to use a custom style, just remove this line and use your own style.
+
+
 ## Demo 👀 :
 
-A [storybook](https://lelivrescolaire.github.io/react-light-calendar) demo is avaliable [here]().
+A [storybook](https://github.com/storybooks/storybook) demo is avaliable [here](https://lelivrescolaire.github.io/react-light-calendar).
 
 ## Compatibility ✅ :
 
@@ -79,8 +81,8 @@ A [storybook](https://lelivrescolaire.github.io/react-light-calendar) demo is av
 
 | @lls/react-light-calendar | react / react-dom |
 |:------------------------- |:------------------|
-| 1.0.0                     | <= 15.6.2         | 
-| 2.x                       | >= 16.0.0         | 
+| 1.x                       | <= 15.6.2         |
+| 2.x                       | >= 16.0.0         |
 
 ---------------------------------------
 
@@ -88,7 +90,7 @@ A [storybook](https://lelivrescolaire.github.io/react-light-calendar) demo is av
 
 According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS).
 
-| Chrome 42 | Firefox 37 | Safari 8 | Internet Explorer 10 | Microsoft Edge | 
+| Chrome 42 | Firefox 37 | Safari 8 | Internet Explorer 10 | Microsoft Edge |
 |:--------- |:-----------|:---------|:---------------------|:---------------|
 | ✅        | ✅        | ✅       | ✅                   | ✅             |
 
@@ -102,7 +104,7 @@ The following list represent all avaliable `@lls/react-light-calendar`'s props.
 * Required : *false*
 * Avaliable since : *v1.0.0*
 
-Default date (timestamp) selected or first date selected if [range](#range-) is `true`. 
+Default date (timestamp) selected or first date selected if [range](#range-) is `true`.
 
 ---------------------------------------
 
@@ -164,7 +166,7 @@ If time input must be displayed.
 
 ### dayLabels :
 * Type : *Array[String]*
-* Default value : *empty array*
+* Default value : `['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']`
 * Required : *true*
 * Avaliable since : *v1.0.0*
 
@@ -172,23 +174,13 @@ Days name.
 
 ---------------------------------------
 
-### monthLabels : 
+### monthLabels :
 * Type : *Array[String]*
-* Default value : *empty array*
+* Default value : `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
 * Required : *true*
 * Avaliable since : *v1.0.0*
 
 Months name.
-
----------------------------------------
-
-### custom :
-* Type : *Object*
-* Default value : *empty object*
-* Required : *false*
-* Avaliable since : *v1.0.0*
-
-An object that contain all extra props for Calendar component. Example : `onClick`, `id`, `style`.
 
 ## Examples 📋 :
 
@@ -226,7 +218,7 @@ class Calendar extends Component {
 
 ---------------------------------------
 
-### Good practice example : 
+### Good practice example :
 
 The best way to avoid massive code and code duolication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
@@ -248,21 +240,29 @@ If you want to use it like a datetime input, you can follow this [example](./exa
 git clone git@github.com:lelivrescolaire/react-light-calendar.git
 
 // ⬇️ Install node modules
-npm install     
+npm install
 
 // 🚀 Start the project
-npm run start   
+npm run start
 
 // ✅ Run tests
-npm run test    
+npm run test
 
 // 🏗️ Build the project
-npm run build   
+npm run build
 
 // 👀 Keep an eye on the bundle size
-npm run size   
+npm run size
 ```
 
 ## License 🖋 :
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
+
+---------------------------------------
+
+<center>
+Developped by
+
+![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)
+</center>

@@ -136,6 +136,18 @@ var inherits = function (subClass, superClass) {
   if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 };
 
+var objectWithoutProperties = function (obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
+
 var possibleConstructorReturn = function (self, call) {
   if (!self) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -423,178 +435,187 @@ var Calendar = function (_Component) {
 
     var _this = possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
 
-    _this.componentWillReceiveProps = function (nextProps) {
-      return _this.setState(parseRange(nextProps.startDate, nextProps.endDate, nextProps.range));
-    };
+    _initialiseProps$1.call(_this);
 
-    _this.onClickDay = function (day) {
-      var range = _this.props.range;
-      var _this$state = _this.state,
-          startDate = _this$state.startDate,
-          endDate = _this$state.endDate;
-
-      if (range) {
-        if (!startDate) _this.update({ startDate: day });else {
-          var sDate = day < startDate ? day : startDate;
-          var eDate = day < startDate ? endDate : day;
-          _this.update({
-            startDate: extendTime(startDate, sDate),
-            endDate: extendTime(endDate, eDate)
-          });
-        }
-      } else _this.update({ startDate: extendTime(startDate, day), endDate: null });
-    };
-
-    _this.onStartTimeChange = function (date) {
-      return _this.update({ startDate: date });
-    };
-
-    _this.onEndTimeChange = function (date) {
-      return _this.update({ endDate: date });
-    };
-
-    _this.changeMonth = function (_ref) {
-      var _ref$yearOffset = _ref.yearOffset,
-          yearOffset = _ref$yearOffset === undefined ? 0 : _ref$yearOffset,
-          _ref$monthOffset = _ref.monthOffset,
-          monthOffset = _ref$monthOffset === undefined ? 0 : _ref$monthOffset;
-      var _this$state2 = _this.state,
-          year = _this$state2.year,
-          month = _this$state2.month;
-
-      var date = new Date(year + yearOffset, month + monthOffset, 1).getTime();
-      _this.setState(initMonth(date));
-    };
-
-    _this.prevYear = function () {
-      return _this.changeMonth({ yearOffset: -1 });
-    };
-
-    _this.prevMonth = function () {
-      return _this.changeMonth({ monthOffset: -1 });
-    };
-
-    _this.nextYear = function () {
-      return _this.changeMonth({ yearOffset: 1 });
-    };
-
-    _this.nextMonth = function () {
-      return _this.changeMonth({ monthOffset: 1 });
-    };
-
-    _this.update = function (_ref2) {
-      var startDate = _ref2.startDate,
-          endDate = _ref2.endDate;
-
-      _this.props.onChange(startDate || _this.props.startDate, endDate || _this.props.endDate);
-    };
-
-    _this.getClassNames = function (day) {
-      var _this$state3 = _this.state,
-          firstMonthDay = _this$state3.firstMonthDay,
-          lastMonthDay = _this$state3.lastMonthDay,
-          startDate = _this$state3.startDate,
-          endDate = _this$state3.endDate;
-      var disableDates = _this.props.disableDates;
-
-
-      var conditions = defineProperty({
-        'rlc-day-disabled': disableDates(day),
-        'rlc-day-today': dayAreSame(day, getDateWithoutTime(new Date())),
-        'rlc-day-inside-selection': dateIsBetween(day, startDate, endDate),
-        'rlc-day-out-of-month': dateIsOut(day, firstMonthDay, lastMonthDay),
-        'rlc-day-selected': !endDate && dayAreSame(startDate, day),
-        'rlc-day-start-selection': endDate && dayAreSame(startDate, day),
-        'rlc-day-end-selection': endDate && dayAreSame(endDate, day)
-      }, 'rlc-day-' + day, true);
-
-      var classnames = Object.entries(conditions).reduce(function (prev, _ref3) {
-        var _ref4 = slicedToArray(_ref3, 2),
-            className = _ref4[0],
-            valid = _ref4[1];
-
-        return valid ? prev + ' ' + className : prev;
-      }, '');
-
-      return classnames || 'Day_default';
-    };
-
-    _this.render = function () {
-      var _this$state4 = _this.state,
-          firstDayToDisplay = _this$state4.firstDayToDisplay,
-          lastDayToDisplay = _this$state4.lastDayToDisplay,
-          startDate = _this$state4.startDate,
-          endDate = _this$state4.endDate,
-          month = _this$state4.month,
-          year = _this$state4.year;
-      var _this$props = _this.props,
-          disableDates = _this$props.disableDates,
-          displayTime = _this$props.displayTime,
-          dayLabels = _this$props.dayLabels,
-          monthLabels = _this$props.monthLabels,
-          custom = _this$props.custom;
-
-
-      return React__default.createElement(
-        'div',
-        _extends({ className: 'rlc-calendar' }, custom),
-        React__default.createElement(Details, {
-          startDate: startDate,
-          endDate: endDate,
-          dayLabels: dayLabels,
-          monthLabels: monthLabels,
-          displayTime: displayTime,
-          onStartTimeChange: _this.onStartTimeChange,
-          onEndTimeChange: _this.onEndTimeChange
-        }),
-        React__default.createElement(MonthWrapper, {
-          monthLabels: monthLabels,
-          month: month,
-          year: year,
-          prevYear: _this.prevYear,
-          prevMonth: _this.prevMonth,
-          nextYear: _this.nextYear,
-          nextMonth: _this.nextMonth
-        }),
-        React__default.createElement(
-          'div',
-          { className: 'rlc-days-label' },
-          dayLabels.map(function (label) {
-            return React__default.createElement(
-              'div',
-              { className: 'rlc-day-label', key: label.toLowerCase() },
-              label.slice(0, 2)
-            );
-          })
-        ),
-        React__default.createElement(
-          'div',
-          { className: 'rlc-days' },
-          getDays(firstDayToDisplay, lastDayToDisplay).map(function (day) {
-            return React__default.createElement(
-              'div',
-              {
-                className: 'rlc-day ' + _this.getClassNames(day),
-                key: day,
-                onClick: function onClick() {
-                  return !disableDates(day) && _this.onClickDay(day);
-                }
-              },
-              new Date(day).getDate()
-            );
-          })
-        )
-      );
-    };
-
-    _this.state = _extends({}, initMonth(_this.props.startDate), parseRange(props.startDate, props.endDate, props.range));
+    _this.state = _extends({}, initMonth(props.startDate), parseRange(props.startDate, props.endDate, props.range));
     return _this;
   }
 
   return Calendar;
 }(React.Component);
 
-Calendar.defaultProps = {
+var _initialiseProps$1 = function _initialiseProps() {
+  var _this2 = this;
+
+  this.componentWillReceiveProps = function (nextProps) {
+    return _this2.setState(parseRange(nextProps.startDate, nextProps.endDate, nextProps.range));
+  };
+
+  this.onClickDay = function (day) {
+    var range = _this2.props.range;
+    var _state = _this2.state,
+        startDate = _state.startDate,
+        endDate = _state.endDate;
+
+    if (range) {
+      if (!startDate) _this2.update({ startDate: day });else {
+        var sDate = day < startDate ? day : startDate;
+        var eDate = day < startDate ? endDate : day;
+        _this2.update({
+          startDate: extendTime(startDate, sDate),
+          endDate: extendTime(endDate, eDate)
+        });
+      }
+    } else _this2.update({ startDate: extendTime(startDate, day), endDate: null });
+  };
+
+  this.onStartTimeChange = function (date) {
+    return _this2.update({ startDate: date });
+  };
+
+  this.onEndTimeChange = function (date) {
+    return _this2.update({ endDate: date });
+  };
+
+  this.changeMonth = function (_ref) {
+    var _ref$yearOffset = _ref.yearOffset,
+        yearOffset = _ref$yearOffset === undefined ? 0 : _ref$yearOffset,
+        _ref$monthOffset = _ref.monthOffset,
+        monthOffset = _ref$monthOffset === undefined ? 0 : _ref$monthOffset;
+    var _state2 = _this2.state,
+        year = _state2.year,
+        month = _state2.month;
+
+    var date = new Date(year + yearOffset, month + monthOffset, 1).getTime();
+    _this2.setState(initMonth(date));
+  };
+
+  this.prevYear = function () {
+    return _this2.changeMonth({ yearOffset: -1 });
+  };
+
+  this.prevMonth = function () {
+    return _this2.changeMonth({ monthOffset: -1 });
+  };
+
+  this.nextYear = function () {
+    return _this2.changeMonth({ yearOffset: 1 });
+  };
+
+  this.nextMonth = function () {
+    return _this2.changeMonth({ monthOffset: 1 });
+  };
+
+  this.update = function (_ref2) {
+    var startDate = _ref2.startDate,
+        endDate = _ref2.endDate;
+    return _this2.props.onChange(startDate || _this2.props.startDate, endDate || _this2.props.endDate);
+  };
+
+  this.getClassNames = function (day) {
+    var _state3 = _this2.state,
+        firstMonthDay = _state3.firstMonthDay,
+        lastMonthDay = _state3.lastMonthDay,
+        startDate = _state3.startDate,
+        endDate = _state3.endDate;
+    var disableDates = _this2.props.disableDates;
+
+
+    var conditions = defineProperty({
+      'rlc-day-disabled': disableDates(day),
+      'rlc-day-today': dayAreSame(day, getDateWithoutTime(new Date())),
+      'rlc-day-inside-selection': dateIsBetween(day, startDate, endDate),
+      'rlc-day-out-of-month': dateIsOut(day, firstMonthDay, lastMonthDay),
+      'rlc-day-selected': !endDate && dayAreSame(startDate, day),
+      'rlc-day-start-selection': endDate && dayAreSame(startDate, day),
+      'rlc-day-end-selection': endDate && dayAreSame(endDate, day)
+    }, 'rlc-day-' + day, true);
+
+    var classnames = Object.entries(conditions).reduce(function (prev, _ref3) {
+      var _ref4 = slicedToArray(_ref3, 2),
+          className = _ref4[0],
+          valid = _ref4[1];
+
+      return valid ? prev + ' ' + className : prev;
+    }, '');
+
+    return classnames || 'Day_default';
+  };
+
+  this.render = function () {
+    var _state4 = _this2.state,
+        firstDayToDisplay = _state4.firstDayToDisplay,
+        lastDayToDisplay = _state4.lastDayToDisplay,
+        sDate = _state4.startDate,
+        eDate = _state4.endDate,
+        month = _state4.month,
+        year = _state4.year;
+    var _props = _this2.props,
+        startDate = _props.startDate,
+        endDate = _props.endDate,
+        onChange = _props.onChange,
+        range = _props.range,
+        disableDates = _props.disableDates,
+        displayTime = _props.displayTime,
+        dayLabels = _props.dayLabels,
+        monthLabels = _props.monthLabels,
+        props = objectWithoutProperties(_props, ['startDate', 'endDate', 'onChange', 'range', 'disableDates', 'displayTime', 'dayLabels', 'monthLabels']);
+
+
+    return React__default.createElement(
+      'div',
+      _extends({ className: 'rlc-calendar' }, props),
+      React__default.createElement(Details, {
+        startDate: sDate,
+        endDate: eDate,
+        dayLabels: dayLabels,
+        monthLabels: monthLabels,
+        displayTime: displayTime,
+        onStartTimeChange: _this2.onStartTimeChange,
+        onEndTimeChange: _this2.onEndTimeChange
+      }),
+      React__default.createElement(MonthWrapper, {
+        monthLabels: monthLabels,
+        month: month,
+        year: year,
+        prevYear: _this2.prevYear,
+        prevMonth: _this2.prevMonth,
+        nextYear: _this2.nextYear,
+        nextMonth: _this2.nextMonth
+      }),
+      React__default.createElement(
+        'div',
+        { className: 'rlc-days-label' },
+        dayLabels.map(function (label) {
+          return React__default.createElement(
+            'div',
+            { className: 'rlc-day-label', key: label.toLowerCase() },
+            label.slice(0, 2)
+          );
+        })
+      ),
+      React__default.createElement(
+        'div',
+        { className: 'rlc-days' },
+        getDays(firstDayToDisplay, lastDayToDisplay).map(function (day) {
+          return React__default.createElement(
+            'div',
+            {
+              className: 'rlc-day ' + _this2.getClassNames(day),
+              key: day,
+              onClick: function onClick() {
+                return !disableDates(day) && _this2.onClickDay(day);
+              }
+            },
+            new Date(day).getDate()
+          );
+        })
+      )
+    );
+  };
+};
+
+var DEFAULT_PROPS = {
   startDate: null,
   endDate: null,
   onChange: function onChange() {},
@@ -603,10 +624,11 @@ Calendar.defaultProps = {
     return false;
   },
   displayTime: false,
-  dayLabels: [],
-  monthLabels: [],
-  custom: {}
+  dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+  monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 };
+
+Calendar.defaultProps = DEFAULT_PROPS;
 
 Calendar.propTypes = {
   startDate: propTypes.number,
@@ -616,8 +638,7 @@ Calendar.propTypes = {
   disableDates: propTypes.func,
   displayTime: propTypes.bool,
   dayLabels: propTypes.arrayOf(propTypes.string).isRequired,
-  monthLabels: propTypes.arrayOf(propTypes.string).isRequired,
-  custom: propTypes.object
+  monthLabels: propTypes.arrayOf(propTypes.string).isRequired
 };
 
 module.exports = Calendar;
