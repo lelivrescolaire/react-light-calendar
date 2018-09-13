@@ -34,7 +34,8 @@
   "homepage": "https://github.com/lelivrescolaire/react-light-calendar#readme",
   "dependencies": {
     "lodash.times": "4.3.2",
-    "prop-types": "15.6.0"
+    "prop-types": "15.6.0",
+    "timestamp-utils": "1.0.3"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.14",

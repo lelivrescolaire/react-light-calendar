@@ -3,6 +3,7 @@
 🗓 A lightweight calendar for React (~4 kb)
 
 ![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
+![](http://img.badgesize.io/lelivrescolaire/react-light-calendar/master/dist/index.js?compression=gzip)
 
 ---------------------------------------
 
@@ -267,6 +268,6 @@ npm run size
 	<br/>
 	<br/>
 	<a href="https://www.lelivrescolaire.fr/">
-		<img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png" width="200" alt="Lelivrescolaire.fr">
+		<img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png" alt="Lelivrescolaire.fr">
 	</a>
 </div>

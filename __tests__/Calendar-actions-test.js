@@ -57,13 +57,13 @@ test('Actions - Select range yesterday to tommorow and before today to yesterday
   const beforeYesterdayDay = calendar.find(`.rlc-day-${beforeYesterdayWithoutTime}`)
 
   todayDay.simulate('click')
-  calendar.setProps({ endDate: todayWithoutTime })
+  calendar.setProps({ startDate: todayWithoutTime, endDate: null })
 
   beforeYesterdayDay.simulate('click')
-  calendar.setProps({ startDate: beforeYesterdayWithoutTime })
+  calendar.setProps({ endDate: beforeYesterdayWithoutTime })
 
   expect(onChange.callCount).to.be.equal(4)
-  expect(onChange.thirdCall.calledWith(yesterdayWithoutTime, todayWithoutTime)).to.be.equal(true)
+  expect(onChange.thirdCall.calledWith(todayWithoutTime, null)).to.be.equal(true)
   expect(onChange.lastCall.calledWith(beforeYesterdayWithoutTime, todayWithoutTime)).to.be.equal(true)
 })
 

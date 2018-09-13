@@ -18,12 +18,15 @@ class OnChange extends Component {
     const date = new Date()
     const startDate = date.getTime()
     this.state = {
-      startDate,
-      endDate: new Date(startDate).setDate(date.getDate() + 6)
+      startDate: null,
+      endDate: null//new Date(startDate).setDate(date.getDate() + 6)
     }
   }
 
-  onChange = (startDate, endDate) => this.setState({ startDate, endDate })
+  onChange = (startDate, endDate) => {
+    console.log({ startDate, endDate })
+    this.setState({ startDate, endDate })
+  }
 
   render = () => {
     const { startDate, endDate } = this.state
@@ -47,7 +50,7 @@ const InputCSS = () =>
     `}}/>
     <div className='input-example' tabIndex={0}>
       <input type='text' className='input-text'/>
-      <Calendar custom={{ tabIndex: 1 }} />
+      <Calendar tabIndex={1} />
     </div>
   </div>
 
@@ -70,7 +73,7 @@ class InputJS extends Component {
 }
 
 storiesOf('Calendar', module)
-  .add('default', () => <Calendar />)
+  .add('default', () => <Calendar startDate={718585200000} />)
   .add('onChange', () => <OnChange />)
   .add('default value', () => <Calendar startDate={new Date().getTime()} />)
   .add('default values (range)', () => <DefaultValueRange />)

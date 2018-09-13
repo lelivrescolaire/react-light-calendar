@@ -7,7 +7,7 @@ const MonthWrapper = ({ monthLabels, month, year, prevYear, prevMonth, nextYear,
       <div className="rlc-navigation-button rlc-prev-year" onClick={prevYear}>{'<<'}</div>
       <div className="rlc-navigation-button rlc-prev-month" onClick={prevMonth}>{'<'}</div>
     </div>
-    <div className="rlc-month-and-year">{monthLabels[month]} <span>{year}</span></div>
+    <div className="rlc-month-and-year">{monthLabels[month - 1]} <span>{year}</span></div>
     <div className="rlc-navigation-button-wrapper rlc-nexts">
       <div className="rlc-navigation-button rlc-next-month" onClick={nextMonth}>{'>'}</div>
       <div className="rlc-navigation-button rlc-next-year" onClick={nextYear}>{'>>'}</div>
@@ -17,7 +17,7 @@ const MonthWrapper = ({ monthLabels, month, year, prevYear, prevMonth, nextYear,
 MonthWrapper.propTypes = {
   monthLabels: arrayOf(string),
   month: number,
-  year: number,
+  year: string,
   prevYear: func,
   prevMonth: func,
   nextYear: func,
