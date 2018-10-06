@@ -47,7 +47,7 @@ const InputCSS = () =>
     `}}/>
     <div className='input-example' tabIndex={0}>
       <input type='text' className='input-text'/>
-      <Calendar custom={{ tabIndex: 1 }} />
+      <Calendar tabIndex={1} />
     </div>
   </div>
 

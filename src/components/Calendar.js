@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut,
-  extendTime, dayAreSame, getDateWithoutTime } from '../utils'
+  dayAreSame, getDateWithoutTime } from '../utils'
+import dayjs from 'dayjs'
 
 // Components
 import Details from './Details'
@@ -27,15 +28,9 @@ class Calendar extends Component {
     const { startDate, endDate } = this.state
     if (range) {
       if (!startDate) this.update({ startDate: day })
-      else {
-        const sDate = day < startDate ? day : startDate
-        const eDate = day < startDate ? endDate : day
-        this.update({
-          startDate: extendTime(startDate, sDate),
-          endDate: extendTime(endDate, eDate)
-        })
-      }
-    } else this.update({ startDate: extendTime(startDate, day), endDate: null })
+      else if (startDate && !endDate) this.update(parseRange(startDate, day, range))
+      else this.update({ startDate: day, endDate: null })
+    } else this.update({ startDate: day, endDate: null })
   }
 
   onStartTimeChange = date => this.update({ startDate: date })
@@ -43,7 +38,11 @@ class Calendar extends Component {
 
   changeMonth = ({ yearOffset = 0, monthOffset = 0 }) => {
     const { year, month } = this.state
-    const date = new Date(year + yearOffset, month + monthOffset, 1).getTime()
+    const date = dayjs()
+      .set('year', year + yearOffset)
+      .set('month', month + monthOffset)
+      .set('date', 1)
+      .valueOf()
     this.setState(initMonth(date))
   }
 
@@ -53,8 +52,11 @@ class Calendar extends Component {
   nextYear = () => this.changeMonth({ yearOffset: 1 })
   nextMonth = () => this.changeMonth({ monthOffset: 1 })
 
-  update = ({ startDate, endDate }) =>
-    this.props.onChange(startDate || this.props.startDate, endDate || this.props.endDate)
+  update = ({ startDate, endDate }) => {
+    const sDate = startDate === undefined ? this.props.startDate : startDate
+    const eDate = endDate === undefined ? this.props.endDate : endDate
+    this.props.onChange(sDate, eDate)
+  }
 
   getClassNames = day => {
     const { firstMonthDay, lastMonthDay, startDate, endDate } = this.state
@@ -62,7 +64,7 @@ class Calendar extends Component {
 
     const conditions = {
       'rlc-day-disabled': disableDates(day),
-      'rlc-day-today': dayAreSame(day, getDateWithoutTime(new Date())),
+      'rlc-day-today': dayAreSame(day, getDateWithoutTime(dayjs().valueOf())),
       'rlc-day-inside-selection': dateIsBetween(day, startDate, endDate),
       'rlc-day-out-of-month': dateIsOut(day, firstMonthDay, lastMonthDay),
       'rlc-day-selected': !endDate && dayAreSame(startDate, day),
@@ -112,7 +114,7 @@ class Calendar extends Component {
               key={day}
               onClick={() => !disableDates(day) && this.onClickDay(day)}
             >
-              {new Date(day).getDate()}
+              {dayjs(day).date()}
             </div>
           )}
         </div>
