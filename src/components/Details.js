@@ -1,5 +1,6 @@
 import React from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
+import dayjs from 'dayjs'
 
 // Components
 import DateDetails from './DateDetails'
@@ -11,7 +12,7 @@ function Details ({ startDate, endDate, dayLabels, monthLabels, displayTime, onS
         <DateDetails
           dayLabels={dayLabels}
           monthLabels={monthLabels}
-          date={new Date(startDate)}
+          date={dayjs(startDate).valueOf()}
           displayTime={displayTime}
           onTimeChange={onStartTimeChange}
         />
@@ -20,7 +21,7 @@ function Details ({ startDate, endDate, dayLabels, monthLabels, displayTime, onS
         <DateDetails
           dayLabels={dayLabels}
           monthLabels={monthLabels}
-          date={new Date(endDate)}
+          date={dayjs(endDate).valueOf()}
           displayTime={displayTime}
           onTimeChange={onEndTimeChange}
         />

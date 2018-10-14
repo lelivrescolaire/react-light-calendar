@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/lelivrescolaire/react-light-calendar#readme",
   "dependencies": {
+    "dayjs": "^1.7.5",
     "lodash.times": "4.3.2",
     "prop-types": "15.6.0"
   },

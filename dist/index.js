@@ -3,35 +3,31 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
 var times = _interopDefault(require('lodash.times'));
+var dayjs = _interopDefault(require('dayjs'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var propTypes = require('prop-types');
 
-var DAY_IN_MILLISECONDS = 1000 * 3600 * 24;
+// Always display 42 days, for mouth with 6 months who covered 6 differents weeks
+var DAY_COUNT_DSPLAYED_PR_MONTH = 42;
 
 var initMonth = function initMonth(timestamp) {
-  timestamp = timestamp || new Date().getTime(); // Force a default value if prop `value` is null
-  var date = new Date(timestamp);
-  var month = date.getMonth();
-  var year = date.getFullYear();
+  timestamp = timestamp || dayjs().valueOf(); // Force a default value if prop `value` is null
+  var date = dayjs(timestamp);
+  var month = date.month();
+  var year = date.year();
 
-  var firstMonthDay = new Date(year, month, 1);
-  var firstMonthDayTime = firstMonthDay.getTime();
+  var firstMonthDay = date.startOf('month');
+  var lastMonthDay = date.endOf('month');
 
-  var lastMonthDay = new Date(year, month + 1, 0);
-  var lastMonthDayTime = lastMonthDay.getTime();
-
-  // Always display 42 days, for mouth with 6 month who covered 6 differents weeks
-  var startOffset = (firstMonthDay.getDay() || 7) - 1;
-
-  var firstDayToDisplay = new Date(firstMonthDayTime).setDate(firstMonthDay.getDate() - startOffset);
-  var lastDayToDisplay = new Date(firstDayToDisplay).setDate(new Date(firstDayToDisplay).getDate() + 41);
+  var firstDayToDisplay = dayjs(firstMonthDay).subtract(firstMonthDay.day() - 1, 'day');
+  var lastDayToDisplay = dayjs(firstDayToDisplay).add(DAY_COUNT_DSPLAYED_PR_MONTH, 'day');
 
   return {
-    firstMonthDay: firstMonthDayTime,
-    lastMonthDay: lastMonthDayTime,
-    firstDayToDisplay: firstDayToDisplay,
-    lastDayToDisplay: lastDayToDisplay,
+    firstMonthDay: firstMonthDay.valueOf(),
+    lastMonthDay: lastMonthDay.valueOf(),
+    firstDayToDisplay: firstDayToDisplay.valueOf(),
+    lastDayToDisplay: lastDayToDisplay.valueOf(),
     month: month,
     year: year
   };
@@ -44,11 +40,10 @@ var parseRange = function parseRange(startDate, endDate, range) {
   };
 };
 
-var getDays = function getDays(firstDay, lastDay) {
-  var firstDayDate = new Date(firstDay);
-  var daysCount = Math.round((lastDay - firstDay) / DAY_IN_MILLISECONDS) + 1;
-  return times(daysCount, function (i) {
-    return new Date(firstDay).setDate(firstDayDate.getDate() + i);
+var getDays = function getDays(first, last) {
+  var firstDay = dayjs(first);
+  return times(DAY_COUNT_DSPLAYED_PR_MONTH, function (i) {
+    return firstDay.add(i, 'day');
   });
 };
 
@@ -67,8 +62,7 @@ var dateIsOut = function dateIsOut(d, s, e) {
 };
 
 var getDateWithoutTime = function getDateWithoutTime(d) {
-  var date = new Date(d);
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+  return dayjs(d).startOf('day').valueOf();
 };
 
 var dayAreSame = function dayAreSame(a, b) {
@@ -77,12 +71,6 @@ var dayAreSame = function dayAreSame(a, b) {
 
 var formartTime = function formartTime(value) {
   return ('0' + value).slice(-2);
-};
-
-var extendTime = function extendTime(frm, to) {
-  if (!frm || !to) return to;
-  var date = new Date(frm);
-  return new Date(new Date(to).setHours(date.getHours())).setMinutes(date.getMinutes());
 };
 
 var classCallCheck = function (instance, Constructor) {
@@ -219,8 +207,8 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.extractTime = function (props) {
-    var d = new Date(props.date);
-    return { hours: d.getHours(), minutes: d.getMinutes() };
+    var d = dayjs(props.date);
+    return { hours: d.hour(), minutes: d.minute() };
   };
 
   this.onHoursChange = function (e) {
@@ -228,7 +216,7 @@ var _initialiseProps = function _initialiseProps() {
         date = _props.date,
         onTimeChange = _props.onTimeChange;
 
-    onTimeChange(new Date(date).setHours(e.target.value));
+    onTimeChange(dayjs(date).set('hour', e.target.value));
   };
 
   this.onMinutesChange = function (e) {
@@ -236,7 +224,7 @@ var _initialiseProps = function _initialiseProps() {
         date = _props2.date,
         onTimeChange = _props2.onTimeChange;
 
-    onTimeChange(new Date(date).setMinutes(e.target.value));
+    onTimeChange(dayjs(date).set('minute', e.target.value));
   };
 
   this.render = function () {
@@ -249,6 +237,7 @@ var _initialiseProps = function _initialiseProps() {
         hours = _state.hours,
         minutes = _state.minutes;
 
+    var d = dayjs(date);
 
     return React__default.createElement(
       'div',
@@ -259,7 +248,7 @@ var _initialiseProps = function _initialiseProps() {
         React__default.createElement(
           'div',
           { className: 'rlc-date-number' },
-          date.getDate()
+          d.date
         ),
         React__default.createElement(
           'div',
@@ -267,17 +256,17 @@ var _initialiseProps = function _initialiseProps() {
           React__default.createElement(
             'div',
             { className: 'rlc-detail-day' },
-            dayLabels[(date.getDay() || 7) - 1]
+            dayLabels[(d.day() || 7) - 1]
           ),
           React__default.createElement(
             'div',
             { className: 'rlc-detail-month-year' },
-            monthLabels[date.getMonth()],
+            monthLabels[d.month()],
             ' ',
             React__default.createElement(
               'span',
               { className: 'rlc-detail-year' },
-              date.getFullYear()
+              d.year()
             )
           )
         )
@@ -340,14 +329,14 @@ function Details(_ref) {
     startDate && React__default.createElement(DateDetails, {
       dayLabels: dayLabels,
       monthLabels: monthLabels,
-      date: new Date(startDate),
+      date: dayjs(startDate).valueOf(),
       displayTime: displayTime,
       onTimeChange: onStartTimeChange
     }),
     endDate && React__default.createElement(DateDetails, {
       dayLabels: dayLabels,
       monthLabels: monthLabels,
-      date: new Date(endDate),
+      date: dayjs(endDate).valueOf(),
       displayTime: displayTime,
       onTimeChange: onEndTimeChange
     })
@@ -458,15 +447,8 @@ var _initialiseProps$1 = function _initialiseProps() {
         endDate = _state.endDate;
 
     if (range) {
-      if (!startDate) _this2.update({ startDate: day });else {
-        var sDate = day < startDate ? day : startDate;
-        var eDate = day < startDate ? endDate : day;
-        _this2.update({
-          startDate: extendTime(startDate, sDate),
-          endDate: extendTime(endDate, eDate)
-        });
-      }
-    } else _this2.update({ startDate: extendTime(startDate, day), endDate: null });
+      if (!startDate) _this2.update({ startDate: day });else if (startDate && !endDate) _this2.update(parseRange(startDate, day, range));else _this2.update({ startDate: day, endDate: null });
+    } else _this2.update({ startDate: day, endDate: null });
   };
 
   this.onStartTimeChange = function (date) {
@@ -486,7 +468,7 @@ var _initialiseProps$1 = function _initialiseProps() {
         year = _state2.year,
         month = _state2.month;
 
-    var date = new Date(year + yearOffset, month + monthOffset, 1).getTime();
+    var date = dayjs().set('year', year + yearOffset).set('month', month + monthOffset).set('date', 1).valueOf();
     _this2.setState(initMonth(date));
   };
 
@@ -509,7 +491,10 @@ var _initialiseProps$1 = function _initialiseProps() {
   this.update = function (_ref2) {
     var startDate = _ref2.startDate,
         endDate = _ref2.endDate;
-    return _this2.props.onChange(startDate || _this2.props.startDate, endDate || _this2.props.endDate);
+
+    var sDate = startDate === undefined ? _this2.props.startDate : startDate;
+    var eDate = endDate === undefined ? _this2.props.endDate : endDate;
+    _this2.props.onChange(sDate, eDate);
   };
 
   this.getClassNames = function (day) {
@@ -523,7 +508,7 @@ var _initialiseProps$1 = function _initialiseProps() {
 
     var conditions = defineProperty({
       'rlc-day-disabled': disableDates(day),
-      'rlc-day-today': dayAreSame(day, getDateWithoutTime(new Date())),
+      'rlc-day-today': dayAreSame(day, getDateWithoutTime(dayjs().valueOf())),
       'rlc-day-inside-selection': dateIsBetween(day, startDate, endDate),
       'rlc-day-out-of-month': dateIsOut(day, firstMonthDay, lastMonthDay),
       'rlc-day-selected': !endDate && dayAreSame(startDate, day),
@@ -607,7 +592,7 @@ var _initialiseProps$1 = function _initialiseProps() {
                 return !disableDates(day) && _this2.onClickDay(day);
               }
             },
-            new Date(day).getDate()
+            dayjs(day).date()
           );
         })
       )
