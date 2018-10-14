@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { formartTime } from '../utils'
 import times from 'lodash.times'
 import dayjs from 'dayjs'
-import { bool, arrayOf, string, instanceOf, func } from 'prop-types'
+import { bool, arrayOf, string, func, number } from 'prop-types'
 
 class DateDetails extends Component {
   constructor (props) {
@@ -19,12 +19,12 @@ class DateDetails extends Component {
 
   onHoursChange = e => {
     const { date, onTimeChange } = this.props
-    onTimeChange(dayjs(date).set('hour', e.target.value))
+    onTimeChange(dayjs(date).set('hour', e.target.value).valueOf())
   }
 
   onMinutesChange = e => {
     const { date, onTimeChange } = this.props
-    onTimeChange(dayjs(date).set('minute', e.target.value))
+    onTimeChange(dayjs(date).set('minute', e.target.value).valueOf())
   }
 
   render = () => {
@@ -35,7 +35,7 @@ class DateDetails extends Component {
     return (
       <div className="rlc-date-details-wrapper">
         <div className="rlc-date-details">
-          <div className="rlc-date-number">{d.date}</div>
+          <div className="rlc-date-number">{d.date()}</div>
           <div className="rlc-date-day-month-year">
             <div className="rlc-detail-day">{dayLabels[(d.day() || 7) - 1]}</div>
             <div className="rlc-detail-month-year">{monthLabels[d.month()]} <span className="rlc-detail-year">{d.year()}</span></div>
@@ -54,7 +54,7 @@ class DateDetails extends Component {
 }
 
 DateDetails.propTypes = {
-  date: instanceOf(Date),
+  date: number,
   displayTime: bool,
   dayLabels: arrayOf(string),
   monthLabels: arrayOf(string),

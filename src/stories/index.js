@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 
 import { storiesOf } from '@storybook/react'
-import ReactLightCalendar from '../index'
-
-const Calendar = props => <ReactLightCalendar {...props} />
+import Calendar from '../index'
 
 const DefaultValueRange = () => {
   const date = new Date()
@@ -70,7 +68,7 @@ class InputJS extends Component {
 }
 
 storiesOf('Calendar', module)
-  .add('default', () => <Calendar />)
+  .add('default', () => <Calendar startDate={783212400000} />)
   .add('onChange', () => <OnChange />)
   .add('default value', () => <Calendar startDate={new Date().getTime()} />)
   .add('default values (range)', () => <DefaultValueRange />)

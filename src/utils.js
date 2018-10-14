@@ -11,16 +11,14 @@ export const initMonth = timestamp => {
   const year = date.year()
 
   const firstMonthDay = date.startOf('month')
-  const lastMonthDay = date.endOf('month')
+  const lastMonthDay = date.endOf('month').set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
 
   const firstDayToDisplay = dayjs(firstMonthDay).subtract(firstMonthDay.day() - 1, 'day')
-  const lastDayToDisplay = dayjs(firstDayToDisplay).add(DAY_COUNT_DSPLAYED_PR_MONTH, 'day')
 
   return {
     firstMonthDay: firstMonthDay.valueOf(),
     lastMonthDay: lastMonthDay.valueOf(),
     firstDayToDisplay: firstDayToDisplay.valueOf(),
-    lastDayToDisplay: lastDayToDisplay.valueOf(),
     month,
     year
   }
@@ -31,9 +29,9 @@ export const parseRange = (startDate, endDate, range) => ({
   endDate: endDate && range && !dayAreSame(endDate, startDate) ? Math.max(startDate, endDate) : null
 })
 
-export const getDays = (first, last) => {
+export const getDays = first => {
   const firstDay = dayjs(first)
-  return times(DAY_COUNT_DSPLAYED_PR_MONTH, i => firstDay.add(i, 'day'))
+  return times(DAY_COUNT_DSPLAYED_PR_MONTH, i => firstDay.add(i, 'day').valueOf())
 }
 
 export const dateIsBetween = (d, s, e) => {

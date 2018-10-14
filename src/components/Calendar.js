@@ -80,7 +80,7 @@ class Calendar extends Component {
   }
 
   render = () => {
-    const { firstDayToDisplay, lastDayToDisplay,
+    const { firstDayToDisplay,
       startDate: sDate, endDate: eDate, month, year } = this.state
     const { startDate, endDate, onChange, range, disableDates, displayTime, dayLabels, monthLabels, ...props } = this.props
 
@@ -108,7 +108,7 @@ class Calendar extends Component {
           {dayLabels.map(label => <div className="rlc-day-label" key={label.toLowerCase()}>{label.slice(0, 2)}</div>)}
         </div>
         <div className="rlc-days">
-          {getDays(firstDayToDisplay, lastDayToDisplay).map(day =>
+          {getDays(firstDayToDisplay).map(day =>
             <div
               className={`rlc-day ${this.getClassNames(day)}`}
               key={day}

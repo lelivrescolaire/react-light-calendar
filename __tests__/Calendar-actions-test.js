@@ -57,13 +57,13 @@ test('Actions - Select range yesterday to tommorow and before today to yesterday
   const beforeYesterdayDay = calendar.find(`.rlc-day-${beforeYesterdayWithoutTime}`)
 
   todayDay.simulate('click')
-  calendar.setProps({ endDate: todayWithoutTime })
+  calendar.setProps({ startDate: todayWithoutTime, endDate: null })
 
   beforeYesterdayDay.simulate('click')
-  calendar.setProps({ startDate: beforeYesterdayWithoutTime })
+  calendar.setProps({ endDate: beforeYesterdayWithoutTime })
 
   expect(onChange.callCount).to.be.equal(4)
-  expect(onChange.thirdCall.calledWith(yesterdayWithoutTime, todayWithoutTime)).to.be.equal(true)
+  expect(onChange.thirdCall.calledWith(todayWithoutTime, null)).to.be.equal(true)
   expect(onChange.lastCall.calledWith(beforeYesterdayWithoutTime, todayWithoutTime)).to.be.equal(true)
 })
 
@@ -96,18 +96,6 @@ test('Actions - Change time', () => {
   expect(onChange.calledTwice).to.be.equal(true)
   expect(onChange.firstCall.calledWith(783219600000, null)).to.be.equal(true) // 27 Octobre 1994 at 02:00
   expect(onChange.secondCall.calledWith(783221400000, null)).to.be.equal(true) // 27 Octobre 1994 at 02:30
-})
-
-test('Actions - Propage time when date changed', () => {
-  const onChange = spy()
-  // Vendredi 09 Octobre 1992 at 2:30
-  const calendar = mount(<Calendar startDate={718594200000} onChange={onChange} />)
-  const newDate = calendar.find('.rlc-day-718758000000') // Click on 11 Octobre 1992
-
-  newDate.simulate('click')
-
-  expect(onChange.calledOnce).to.be.equal(true)
-  expect(onChange.calledWith(718767000000, null)).to.be.equal(true) // 11 Octobre 1992 at 02:30
 })
 
 test('Actions - Click next month', () => {
