@@ -1,22 +1,22 @@
 import times from 'lodash.times'
-import { getDay, addDays, addMonths, add, getMonth, getYear, decompose, getWeekDay } from 'timestamp-utils'
+import t from 'timestamp-utils'
 
 const DAYS_TO_DISPLAY_PER_MONTH = 42
 
 export const initMonth = timestamp => {
   timestamp = timestamp || new Date().getTime()
-  const dayNumber = getDay(timestamp)
-  const firstMonthDay = addDays(timestamp, -dayNumber + 1)
-  const lastMonthDay = addMonths(addDays(firstMonthDay, -1), 1)
-  const firstMonthDayNumber = getWeekDay(firstMonthDay)
-  const firstDayToDisplay = addDays(firstMonthDay, -firstMonthDayNumber)
+  const dayNumber = t.getDay(timestamp)
+  const firstMonthDay = t.addDays(timestamp, -dayNumber + 1)
+  const lastMonthDay = t.addMonths(t.addDays(firstMonthDay, -1), 1)
+  const firstMonthDayNumber = t.getWeekDay(firstMonthDay)
+  const firstDayToDisplay = t.addDays(firstMonthDay, -firstMonthDayNumber)
 
   return {
     firstMonthDay,
     lastMonthDay,
     firstDayToDisplay,
-    month: parseInt(getMonth(timestamp), 10),
-    year: getYear(timestamp)
+    month: parseInt(t.getMonth(timestamp), 10),
+    year: t.getYear(timestamp)
   }
 }
 
@@ -26,7 +26,12 @@ export const parseRange = (startDate, endDate, range) => ({
 })
 
 export const getDays = firstDay =>
-  times(DAYS_TO_DISPLAY_PER_MONTH, i => addDays(firstDay, i))
+  times(DAYS_TO_DISPLAY_PER_MONTH, i => t.addDays(firstDay, i))
+
+export const getDateWithoutTime = timestamp => {
+  const [, , , hours, minutes, seconds, milliseconds] = t.decompose(timestamp)
+  return t.add(timestamp, { hours: -hours, minutes: -minutes, seconds: -seconds, milliseconds: -milliseconds })
+}
 
 export const dateIsBetween = (d, s, e) => {
   const date = getDateWithoutTime(d)
@@ -42,11 +47,6 @@ export const dateIsOut = (d, s, e) => {
   return date < start || date > end
 }
 
-export const getDateWithoutTime = timestamp => {
-  const [, , , hours, minutes, seconds, milliseconds] = decompose(timestamp)
-  return add(timestamp, { hours: -hours, minutes: -minutes, seconds: -seconds, milliseconds: -milliseconds })
-}
-
 export const dayAreSame = (a, b) => getDateWithoutTime(a) === getDateWithoutTime(b)
 
 export const formartTime = value => (`0${value}`).slice(-2)
@@ -54,8 +54,8 @@ export const formartTime = value => (`0${value}`).slice(-2)
 export const extendTime = (frm, to) => {
   if (!frm || !to) return to
   const toWithoutTime = getDateWithoutTime(to)
-  const [, , , hours, minutes, seconds, milliseconds] = decompose(frm)
-  return add(toWithoutTime, {
+  const [, , , hours, minutes, seconds, milliseconds] = t.decompose(frm)
+  return t.add(toWithoutTime, {
     hours: parseInt(hours, 10),
     minutes: parseInt(minutes, 10),
     seconds: parseInt(seconds, 10),

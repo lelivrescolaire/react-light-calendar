@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut,
   extendTime, dayAreSame, getDateWithoutTime } from '../utils'
-import { add } from 'timestamp-utils'
+import t from 'timestamp-utils'
 
 // Components
 import Details from './Details'
@@ -20,8 +20,13 @@ class Calendar extends Component {
     }
   }
 
-  componentWillReceiveProps = nextProps =>
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.timezone !== this.props.timezone) {
+      t.setTimezone(nextProps.timezone)
+      this.setState(initMonth(nextProps.startDate))
+    }
     this.setState(parseRange(nextProps.startDate, nextProps.endDate, nextProps.range))
+  }
 
   onClickDay = day => {
     const { range } = this.props
@@ -38,7 +43,7 @@ class Calendar extends Component {
 
   changeMonth = ({ yearOffset = 0, monthOffset = 0 }) => {
     const { firstMonthDay } = this.state
-    const timestamp = add(firstMonthDay, { months: monthOffset, years: yearOffset })
+    const timestamp = t.add(firstMonthDay, { months: monthOffset, years: yearOffset })
     this.setState(initMonth(timestamp))
   }
 
@@ -77,7 +82,7 @@ class Calendar extends Component {
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { startDate, endDate, onChange, range, disableDates, displayTime, dayLabels, monthLabels, ...props } = this.props
+    const { startDate, endDate, onChange, range, disableDates, displayTime, dayLabels, monthLabels, timezone, ...props } = this.props
 
     return (
       <div className="rlc-calendar" {...props}>
@@ -109,7 +114,7 @@ class Calendar extends Component {
               key={day}
               onClick={() => !disableDates(day) && this.onClickDay(day)}
             >
-              {new Date(day).getDate()}
+              {t.getDay(day)}
             </div>
           )}
         </div>
@@ -118,7 +123,7 @@ class Calendar extends Component {
   }
 }
 
-const DEFAULT_PROPS = {
+Calendar.defaultProps = {
   startDate: null,
   endDate: null,
   onChange: () => {},
@@ -126,10 +131,9 @@ const DEFAULT_PROPS = {
   disableDates: () => false,
   displayTime: false,
   dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-  monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  timezone: 'UTC'
 }
-
-Calendar.defaultProps = DEFAULT_PROPS
 
 Calendar.propTypes = {
   startDate: number,
@@ -139,7 +143,8 @@ Calendar.propTypes = {
   disableDates: func,
   displayTime: bool,
   dayLabels: arrayOf(string).isRequired,
-  monthLabels: arrayOf(string).isRequired
+  monthLabels: arrayOf(string).isRequired,
+  timezone: string
 }
 
 export default Calendar

@@ -1,49 +1,39 @@
 import React, { Component } from 'react'
 import { formartTime } from '../utils'
 import times from 'lodash.times'
-import { bool, arrayOf, string, instanceOf, func } from 'prop-types'
+import { bool, arrayOf, string, number, func } from 'prop-types'
+import t from 'timestamp-utils'
 
 class DateDetails extends Component {
-  constructor (props) {
-    super(props)
-    this.state = this.extractTime(props)
-  }
-
-  componentWillReceiveProps = nextProps => this.setState(this.extractTime(nextProps))
-
-  extractTime = props => {
-    const d = new Date(props.date)
-    return { hours: d.getHours(), minutes: d.getMinutes() }
-  }
-
   onHoursChange = e => {
     const { date, onTimeChange } = this.props
-    onTimeChange(new Date(date).setHours(e.target.value))
+    onTimeChange(t.addHours(date, e.target.value))
   }
 
   onMinutesChange = e => {
     const { date, onTimeChange } = this.props
-    onTimeChange(new Date(date).setMinutes(e.target.value))
+    onTimeChange(t.addMinutes(date, e.target.value))
   }
 
   render = () => {
     const { date, displayTime, dayLabels, monthLabels } = this.props
-    const { hours, minutes } = this.state
+    const hours = t.getHours(date)
+    const minutes = t.getMinutes(date)
 
     return (
       <div className="rlc-date-details-wrapper">
         <div className="rlc-date-details">
-          <div className="rlc-date-number">{date.getDate()}</div>
+          <div className="rlc-date-number">{t.getDay(date)}</div>
           <div className="rlc-date-day-month-year">
-            <div className="rlc-detail-day">{dayLabels[(date.getDay() || 7) - 1]}</div>
-            <div className="rlc-detail-month-year">{monthLabels[date.getMonth()]} <span className="rlc-detail-year">{date.getFullYear()}</span></div>
+            <div className="rlc-detail-day">{dayLabels[t.getWeekDay(date)]}</div>
+            <div className="rlc-detail-month-year">{monthLabels[t.getMonth(date)]} <span className="rlc-detail-year">{t.getYear(date)}</span></div>
           </div>
         </div>
         {displayTime &&
           <div className="rlc-date-time-selects">
-            <select onChange={this.onHoursChange} value={hours}>{times(24).map(hour => <option value={hour} key={hour}>{formartTime(hour)}</option>)}</select>
+            <select onChange={this.onHoursChange} value={hours}>{times(24).map(hour => <option value={formartTime(hour)} key={hour}>{formartTime(hour)}</option>)}</select>
             <span className="rlc-time-separator">:</span>
-            <select onChange={this.onMinutesChange} value={minutes}>{times(60).map(minute => <option value={minute} key={minute}>{formartTime(minute)}</option>)}</select>
+            <select onChange={this.onMinutesChange} value={minutes}>{times(60).map(minute => <option value={formartTime(minute)} key={minute}>{formartTime(minute)}</option>)}</select>
           </div>
         }
       </div>
@@ -52,7 +42,7 @@ class DateDetails extends Component {
 }
 
 DateDetails.propTypes = {
-  date: instanceOf(Date),
+  date: number,
   displayTime: bool,
   dayLabels: arrayOf(string),
   monthLabels: arrayOf(string),

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "🗓 A lightweight calendar for React (~4 kb)",
   "main": "dist/index.js",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "lint": "$(npm bin)/eslint src",
     "storybook": "start-storybook -p 9009",
@@ -35,7 +38,7 @@
   "dependencies": {
     "lodash.times": "4.3.2",
     "prop-types": "15.6.0",
-    "timestamp-utils": "1.0.3"
+    "timestamp-utils": "^2.0.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.14",
@@ -43,7 +46,6 @@
     "@storybook/addons": "3.3.14",
     "@storybook/react": "3.3.14",
     "@storybook/storybook-deployer": "2.3.0",
-    "all-contributors-cli": "^5.0.0",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.3",

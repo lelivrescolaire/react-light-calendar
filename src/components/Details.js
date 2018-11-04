@@ -11,7 +11,7 @@ function Details ({ startDate, endDate, dayLabels, monthLabels, displayTime, onS
         <DateDetails
           dayLabels={dayLabels}
           monthLabels={monthLabels}
-          date={new Date(startDate)}
+          date={startDate}
           displayTime={displayTime}
           onTimeChange={onStartTimeChange}
         />
@@ -20,7 +20,7 @@ function Details ({ startDate, endDate, dayLabels, monthLabels, displayTime, onS
         <DateDetails
           dayLabels={dayLabels}
           monthLabels={monthLabels}
-          date={new Date(endDate)}
+          date={endDate}
           displayTime={displayTime}
           onTimeChange={onEndTimeChange}
         />
