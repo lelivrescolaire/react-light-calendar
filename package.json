@@ -1,7 +1,7 @@
 {
   "name": "@lls/react-light-calendar",
   "version": "1.0.0",
-  "description": "🗓 A lightweight calendar for React (~4 kb)",
+  "description": "🗓 A lightweight calendar for React (~3 kb)",
   "main": "dist/index.js",
   "files": [
     "/dist"
@@ -38,7 +38,7 @@
   "dependencies": {
     "lodash.times": "4.3.2",
     "prop-types": "15.6.0",
-    "timestamp-utils": "^2.0.2"
+    "timestamp-utils": "^2.1.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.14",

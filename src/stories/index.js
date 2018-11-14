@@ -94,7 +94,7 @@ class Timezone extends Component{
 }
 
 storiesOf('Calendar', module)
-  .add('default', () => <Calendar startDate={718585200000} />)
+  .add('default', () => <Calendar />)
   .add('onChange', () => <OnChange />)
   .add('default value', () => <Calendar startDate={new Date().getTime()} />)
   .add('default values (range)', () => <DefaultValueRange />)

@@ -7,12 +7,12 @@ import t from 'timestamp-utils'
 class DateDetails extends Component {
   onHoursChange = e => {
     const { date, onTimeChange } = this.props
-    onTimeChange(t.addHours(date, e.target.value))
+    onTimeChange(t.setHours(date, parseInt(e.target.value, 10)))
   }
 
   onMinutesChange = e => {
     const { date, onTimeChange } = this.props
-    onTimeChange(t.addMinutes(date, e.target.value))
+    onTimeChange(t.setMinutes(date, parseInt(e.target.value, 10)))
   }
 
   render = () => {
@@ -26,7 +26,7 @@ class DateDetails extends Component {
           <div className="rlc-date-number">{t.getDay(date)}</div>
           <div className="rlc-date-day-month-year">
             <div className="rlc-detail-day">{dayLabels[t.getWeekDay(date)]}</div>
-            <div className="rlc-detail-month-year">{monthLabels[t.getMonth(date)]} <span className="rlc-detail-year">{t.getYear(date)}</span></div>
+            <div className="rlc-detail-month-year">{monthLabels[t.getMonth(date) - 1]} <span className="rlc-detail-year">{t.getYear(date)}</span></div>
           </div>
         </div>
         {displayTime &&

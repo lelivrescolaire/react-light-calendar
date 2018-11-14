@@ -1,17 +1,18 @@
+/* eslint-disable no-undef */
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut,
- getDateWithoutTime, dayAreSame, extendTime } from '../src/utils'
+  getDateWithoutTime } from '../src/utils'
 import { expect } from 'chai'
 
 test('Utils - initMonth', () => {
   // Init month for 09 Octobre 1992
-  const state = initMonth(718585200000)
+  const state = initMonth(718588800000)
 
   expect(Object.keys(state).length).to.be.equal(5)
-  expect(state).to.have.property('firstMonthDay', 717894000000)
-  expect(state).to.have.property('lastMonthDay', 720486000000)
-  expect(state).to.have.property('firstDayToDisplay', 717634800000)
-  expect(state).to.have.property('month', 9)
-  expect(state).to.have.property('year', 1992)
+  expect(state).to.have.property('firstMonthDay', 717897600000)
+  expect(state).to.have.property('lastMonthDay', 720489600000)
+  expect(state).to.have.property('firstDayToDisplay', 717638400000)
+  expect(state).to.have.property('month', '10')
+  expect(state).to.have.property('year', '1992')
 })
 
 test('Utils - parseRange', () => {
@@ -115,25 +116,6 @@ test('Utils - dateIsOut => false', () => {
 
 test('Utils - getDateWithoutTime', () => {
   // 08 Juillet 2016 at 18:00 to 08 Juillet 2016 at 00:00
-  const dateWithoutTime = getDateWithoutTime(1467993600000)
-  expect(dateWithoutTime).to.be.equal(1467928800000)
+  const dateWithoutTime = getDateWithoutTime(1468000800000)
+  expect(dateWithoutTime).to.be.equal(1467936000000)
 })
-
-test('Utils - dayAreSame => true', () => {
-  // 09 Octobre 1992 at 2:30 is 09 Octobre 1992 at 0:0 ?
-  const areSame = dayAreSame(718594200000, 718585200000)
-  expect(areSame).to.be.equal(true)
-})
-
-test('Utils - dayAreSame => false', () => {
-  // 09 Octobre 1992 at 2:30 is 27 Octobre 1994 at 2:30 ?
-  const areSame = dayAreSame(718585200000, 783221400000)
-  expect(areSame).to.be.equal(false)
-})
-
-test('Utils - extendTime', () => {
-  // Extends time of 09 Octobre 1992 at 2:30 to is 27 Octobre 1994 at 00:00?
-  const date = extendTime(718594200000, 783212400000)
-  expect(date).to.be.equal(783221400000) // 27 Octobre 1994 at 2:30
-})
-

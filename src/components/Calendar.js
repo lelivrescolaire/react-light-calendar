@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
-import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut,
-  extendTime, dayAreSame, getDateWithoutTime } from '../utils'
+import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 import t from 'timestamp-utils'
 
 // Components
@@ -14,6 +13,7 @@ import './index.css'
 class Calendar extends Component {
   constructor (props) {
     super(props)
+    t.setTimezone(props.timezone)
     this.state = {
       ...initMonth(props.startDate),
       ...parseRange(props.startDate, props.endDate, props.range)
@@ -34,8 +34,8 @@ class Calendar extends Component {
     if (range) {
       if (!startDate) this.update({ startDate: day })
       else if (startDate && !endDate) this.update(parseRange(startDate, day, range))
-      else this.update({ startDate: extendTime(startDate, day), endDate: null })
-    } else this.update({ startDate: extendTime(startDate, day), endDate: null })
+      else this.update({ startDate: day, endDate: null })
+    } else this.update({ startDate: day, endDate: null })
   }
 
   onStartTimeChange = date => this.update({ startDate: date })
@@ -62,15 +62,17 @@ class Calendar extends Component {
   getClassNames = day => {
     const { firstMonthDay, lastMonthDay, startDate, endDate } = this.state
     const { disableDates } = this.props
+    const sDate = getDateWithoutTime(startDate)
+    const eDate = getDateWithoutTime(endDate)
 
     const conditions = {
       'rlc-day-disabled': disableDates(day),
-      'rlc-day-today': dayAreSame(day, getDateWithoutTime(new Date().getTime())),
-      'rlc-day-inside-selection': dateIsBetween(day, startDate, endDate),
+      'rlc-day-today': day === getDateWithoutTime(new Date().getTime()),
+      'rlc-day-inside-selection': dateIsBetween(day, sDate, eDate),
       'rlc-day-out-of-month': dateIsOut(day, firstMonthDay, lastMonthDay),
-      'rlc-day-selected': !endDate && dayAreSame(startDate, day),
-      'rlc-day-start-selection': endDate && dayAreSame(startDate, day),
-      'rlc-day-end-selection': endDate && dayAreSame(endDate, day),
+      'rlc-day-selected': !endDate && (sDate === day),
+      'rlc-day-start-selection': endDate && (sDate === day),
+      'rlc-day-end-selection': endDate && (eDate === day),
       [`rlc-day-${day}`]: true
     }
 
@@ -114,7 +116,7 @@ class Calendar extends Component {
               key={day}
               onClick={() => !disableDates(day) && this.onClickDay(day)}
             >
-              {t.getDay(day)}
+              {parseInt(t.getDay(day), 10)}
             </div>
           )}
         </div>

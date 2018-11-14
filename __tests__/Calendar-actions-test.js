@@ -1,7 +1,9 @@
+/* eslint-disable no-undef */
 import React from 'react'
 import { mount } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
+import t from 'timestamp-utils'
 
 // Components
 import Calendar from '../src'
@@ -9,62 +11,59 @@ import Calendar from '../src'
 // Utils
 import { getDateWithoutTime } from '../src/utils'
 
-export const DAY_LABELS = Object.freeze(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
-export const MONTH_LABELS = Object.freeze(['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aûot', 'Septembre', 'Octobre', 'Novembre', 'Décembre'])
+const DAY_LABELS = Object.freeze(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
+const MONTH_LABELS = Object.freeze(['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aûot', 'Septembre', 'Octobre', 'Novembre', 'Décembre'])
 
 test('Actions - Click on tommorow day', () => {
   const onChange = spy()
   const calendar = mount(<Calendar onChange={onChange} />)
-  const today = new Date()
-  const tommorow = today.setDate(today.getDate() + 1)
-  const tommorowDay = calendar.find(`.rlc-day-${getDateWithoutTime(tommorow)}`)
+  const today = calendar.find('.rlc-day-today')
+  const [, todayTimestamp] = today.props().className.match(/rlc-day-(\d{13})/)
+  const tommorowTimestamp = t.addDays(parseInt(todayTimestamp, 10), 1)
+  const tommorow = calendar.find(`.rlc-day-${tommorowTimestamp}`)
 
-  tommorowDay.simulate('click')
+  tommorow.simulate('click')
 
   expect(onChange.calledOnce).to.be.equal(true)
-  expect(onChange.calledWith(getDateWithoutTime(tommorow), null)).to.be.equal(true)
+  expect(onChange.calledWith(tommorowTimestamp, null)).to.be.equal(true)
 })
 
-test('Actions - Select range yesterday to tommorow and before today to yesterday', () => {
+test('Actions - Select range "yesterday to tommorow" and "today to before yesterday"', () => {
   const onChange = spy()
   const calendar = mount(<Calendar onChange={onChange} range />)
 
+  const today = calendar.find('.rlc-day-today')
+  const [, timestamp] = today.props().className.match(/rlc-day-(\d{13})/)
+  const todayTimestamp = parseInt(timestamp, 10)
+
   // Yesterday to tommorow
-  const yesterday = new Date().setDate(new Date().getDate() - 1)
-  const yesterdayWithoutTime = getDateWithoutTime(yesterday)
-  const yesterdayDay = calendar.find(`.rlc-day-${yesterdayWithoutTime}`)
+  const yesterdayTimestamp = t.addDays(todayTimestamp, -1)
+  const yesterday = calendar.find(`.rlc-day-${yesterdayTimestamp}`)
 
-  const tommorow = new Date().setDate(new Date().getDate() + 1)
-  const tommorowWithoutTime = getDateWithoutTime(tommorow)
-  const tommorowDay = calendar.find(`.rlc-day-${tommorowWithoutTime}`)
+  const tommorowTimestamp = t.addDays(todayTimestamp, 1)
+  const tommorow = calendar.find(`.rlc-day-${tommorowTimestamp}`)
 
-  yesterdayDay.simulate('click')
-  calendar.setProps({ startDate: yesterdayWithoutTime })
-  tommorowDay.simulate('click')
-  calendar.setProps({ endDate: tommorowWithoutTime })
+  yesterday.simulate('click')
+  calendar.setProps({ startDate: yesterdayTimestamp })
+  tommorow.simulate('click')
+  calendar.setProps({ endDate: tommorowTimestamp })
 
   expect(onChange.calledTwice).to.be.equal(true)
-  expect(onChange.firstCall.calledWith(yesterdayWithoutTime, null)).to.be.equal(true)
-  expect(onChange.secondCall.calledWith(yesterdayWithoutTime, tommorowWithoutTime)).to.be.equal(true)
+  expect(onChange.firstCall.calledWith(yesterdayTimestamp, null)).to.be.equal(true)
+  expect(onChange.secondCall.calledWith(yesterdayTimestamp, tommorowTimestamp)).to.be.equal(true)
 
   // Today to before yesterday
-  const today = new Date()
-  const todayWithoutTime = getDateWithoutTime(today)
-  const todayDay = calendar.find(`.rlc-day-${todayWithoutTime}`)
+  const beforeYesterdayTimestamp = t.addDays(parseInt(yesterdayTimestamp, 10), -1)
+  const beforeYesterday = calendar.find(`.rlc-day-${beforeYesterdayTimestamp}`)
 
-  const beforeYesterday = new Date().setDate(new Date().getDate() - 2)
-  const beforeYesterdayWithoutTime = getDateWithoutTime(beforeYesterday)
-  const beforeYesterdayDay = calendar.find(`.rlc-day-${beforeYesterdayWithoutTime}`)
-
-  todayDay.simulate('click')
-  calendar.setProps({ startDate: todayWithoutTime, endDate: null })
-
-  beforeYesterdayDay.simulate('click')
-  calendar.setProps({ endDate: beforeYesterdayWithoutTime })
+  today.simulate('click')
+  calendar.setProps({ startDate: todayTimestamp, endDate: null })
+  beforeYesterday.simulate('click')
+  calendar.setProps({ endDate: beforeYesterdayTimestamp })
 
   expect(onChange.callCount).to.be.equal(4)
-  expect(onChange.thirdCall.calledWith(todayWithoutTime, null)).to.be.equal(true)
-  expect(onChange.lastCall.calledWith(beforeYesterdayWithoutTime, todayWithoutTime)).to.be.equal(true)
+  expect(onChange.thirdCall.calledWith(todayTimestamp, null)).to.be.equal(true)
+  expect(onChange.lastCall.calledWith(beforeYesterdayTimestamp, todayTimestamp)).to.be.equal(true)
 })
 
 test('Actions - Click on disabled day', () => {
@@ -83,31 +82,19 @@ test('Actions - Click on disabled day', () => {
 test('Actions - Change time', () => {
   const onChange = spy()
   // Set startDate to Jeudi 27 Octobre 1994 at 00:00
-  const calendar = mount(<Calendar onChange={onChange} startDate={783212400000} displayTime />)
+  const calendar = mount(<Calendar onChange={onChange} startDate={783216000000} displayTime />)
   const hours = calendar.find('.rlc-date-time-selects').childAt(0)
   const minutes = calendar.find('.rlc-date-time-selects').childAt(2)
 
   // Set hours to 2 and minutes to 30
-  hours.simulate('change', { target: { value: '2' } })
-  calendar.setProps({ startDate: 783219600000 })
+  hours.simulate('change', { target: { value: '02' } })
+  calendar.setProps({ startDate: 783223200000 })
   minutes.simulate('change', { target: { value: '30' } })
-  calendar.setProps({ startDate: 783221400000 })
+  calendar.setProps({ startDate: 783225000000 })
 
   expect(onChange.calledTwice).to.be.equal(true)
-  expect(onChange.firstCall.calledWith(783219600000, null)).to.be.equal(true) // 27 Octobre 1994 at 02:00
-  expect(onChange.secondCall.calledWith(783221400000, null)).to.be.equal(true) // 27 Octobre 1994 at 02:30
-})
-
-test('Actions - Propage time when date changed', () => {
-  const onChange = spy()
-  // Vendredi 09 Octobre 1992 at 2:30
-  const calendar = mount(<Calendar startDate={718594200000} onChange={onChange} />)
-  const newDate = calendar.find('.rlc-day-718758000000') // Click on 11 Octobre 1992
-
-  newDate.simulate('click')
-
-  expect(onChange.calledOnce).to.be.equal(true)
-  expect(onChange.calledWith(718767000000, null)).to.be.equal(true) // 11 Octobre 1992 at 02:30
+  expect(onChange.firstCall.calledWith(783223200000, null)).to.be.equal(true) // 27 Octobre 1994 at 02:00
+  expect(onChange.secondCall.calledWith(783225000000, null)).to.be.equal(true) // 27 Octobre 1994 at 02:30
 })
 
 test('Actions - Click next month', () => {
@@ -120,7 +107,7 @@ test('Actions - Click next month', () => {
   const nextMonthIndex = new Date().getMonth() + 1
   const nextMonth = MONTH_LABELS[nextMonthIndex]
   // If nextMonth is in next year add 1 to current year
-  const year = new Date().getFullYear() + (nextMonthIndex === 0 ? 1 : 0 )
+  const year = new Date().getFullYear() + (nextMonthIndex === 0 ? 1 : 0)
   expect(monthElement.text()).to.be.equal(`${nextMonth} ${year}`)
 })
 
@@ -134,7 +121,7 @@ test('Actions - Click prev month', () => {
   const prevMonthIndex = new Date().getMonth() - 1
   const prevMonth = MONTH_LABELS[prevMonthIndex]
   // If prevMonth is in previous year substract 1 to current year
-  const year = new Date().getFullYear() - (prevMonthIndex === MONTH_LABELS.length - 1 ? 1 : 0 )
+  const year = new Date().getFullYear() - (prevMonthIndex === MONTH_LABELS.length - 1 ? 1 : 0)
   expect(monthElement.text()).to.be.equal(`${prevMonth} ${year}`)
 })
 

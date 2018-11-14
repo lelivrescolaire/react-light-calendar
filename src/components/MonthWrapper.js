@@ -1,5 +1,5 @@
 import React from 'react'
-import { number, func, arrayOf, string } from 'prop-types'
+import { func, arrayOf, string } from 'prop-types'
 
 const MonthWrapper = ({ monthLabels, month, year, prevYear, prevMonth, nextYear, nextMonth }) =>
   <div className="rlc-month-and-year-wrapper">
@@ -16,7 +16,7 @@ const MonthWrapper = ({ monthLabels, month, year, prevYear, prevMonth, nextYear,
 
 MonthWrapper.propTypes = {
   monthLabels: arrayOf(string),
-  month: number,
+  month: string,
   year: string,
   prevYear: func,
   prevMonth: func,
