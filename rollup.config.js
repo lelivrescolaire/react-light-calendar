@@ -30,17 +30,17 @@ export default {
     babel({
       exclude: 'node_modules/**',
       plugins: ['external-helpers']
+    }),
+    uglify({
+      toplevel: true,
+      output: {
+        comments: false
+      },
+      compress: {
+        pure_getters: true,
+        unsafe: false,
+        warnings: false
+      }
     })
-    // uglify({
-    //   toplevel: true,
-    //   output: {
-    //     comments: false
-    //   },
-    //   compress: {
-    //     pure_getters: true,
-    //     unsafe: false,
-    //     warnings: false
-    //   }
-    // })
   ]
 }

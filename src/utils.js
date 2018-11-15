@@ -1,24 +1,25 @@
 import times from 'lodash.times'
-import dayjs from 'dayjs'
+import t from 'timestamp-utils'
 
-// Always display 42 days, for mouth with 6 months who covered 6 differents weeks
-const DAY_COUNT_DSPLAYED_PR_MONTH = 42
+const DAYS_TO_DISPLAY_PER_MONTH = 42
+
+const MONTHS_LENGHT = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+export const isLeapYear = year => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 
 export const initMonth = timestamp => {
-  timestamp = timestamp || dayjs().valueOf() // Force a default value if prop `value` is null
-  const date = dayjs(timestamp)
-  const month = date.month()
-  const year = date.year()
-
-  const firstMonthDay = date.startOf('month')
-  const lastMonthDay = date.endOf('month').set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
-
-  const firstDayToDisplay = dayjs(firstMonthDay).subtract(firstMonthDay.day() - 1, 'day')
+  timestamp = timestamp || new Date().getTime()
+  const [year, month, dayNumber] = t.decompose(timestamp)
+  const firstMonthDay = getDateWithoutTime(t.addDays(timestamp, -dayNumber + 1))
+  const monthLenght = MONTHS_LENGHT[month - 1] || (isLeapYear(year) ? 29 : 28)
+  const lastMonthDay = t.addDays(firstMonthDay, monthLenght - 1)
+  const firstMonthDayNumber = t.getWeekDay(firstMonthDay)
+  const firstDayToDisplay = t.addDays(firstMonthDay, -firstMonthDayNumber)
 
   return {
-    firstMonthDay: firstMonthDay.valueOf(),
-    lastMonthDay: lastMonthDay.valueOf(),
-    firstDayToDisplay: firstDayToDisplay.valueOf(),
+    firstMonthDay,
+    lastMonthDay,
+    firstDayToDisplay,
     month,
     year
   }
@@ -26,30 +27,18 @@ export const initMonth = timestamp => {
 
 export const parseRange = (startDate, endDate, range) => ({
   startDate: endDate && range ? Math.min(startDate, endDate) : startDate,
-  endDate: endDate && range && !dayAreSame(endDate, startDate) ? Math.max(startDate, endDate) : null
+  endDate: endDate && range && (endDate !== startDate) ? Math.max(startDate, endDate) : null
 })
 
-export const getDays = first => {
-  const firstDay = dayjs(first)
-  return times(DAY_COUNT_DSPLAYED_PR_MONTH, i => firstDay.add(i, 'day').valueOf())
+export const getDays = firstDay => times(DAYS_TO_DISPLAY_PER_MONTH, i => t.addDays(firstDay, i))
+
+export const getDateWithoutTime = timestamp => {
+  const [, , , hours, minutes, seconds, milliseconds] = t.decompose(timestamp)
+  return t.add(timestamp, { hours: -hours, minutes: -minutes, seconds: -seconds, milliseconds: -milliseconds })
 }
 
-export const dateIsBetween = (d, s, e) => {
-  const date = getDateWithoutTime(d)
-  const start = getDateWithoutTime(s)
-  const end = getDateWithoutTime(e)
-  return date > start && date < end
-}
+export const dateIsBetween = (date, start, end) => date > start && date < end
 
-export const dateIsOut = (d, s, e) => {
-  const date = getDateWithoutTime(d)
-  const start = getDateWithoutTime(s)
-  const end = getDateWithoutTime(e)
-  return date < start || date > end
-}
-
-export const getDateWithoutTime = d => dayjs(d).startOf('day').valueOf()
-
-export const dayAreSame = (a, b) => getDateWithoutTime(a) === getDateWithoutTime(b)
+export const dateIsOut = (date, start, end) => date < start || date > end
 
 export const formartTime = value => (`0${value}`).slice(-2)

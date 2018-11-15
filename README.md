@@ -1,8 +1,15 @@
+<center>
+![](./images/logo-rlc.png)
+
 # @lls/react-light-calendar
 
-🗓 A lightweight calendar for React (~4 kb)
+🗓 A lightweight calendar for React (~3 kb)
+
 
 ![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
+[![Bundlephobia](https://badgen.net/bundlephobia/minzip/@lls/react-light-calendar](https://bundlephobia.com/result?p=@lls/react-light-calendar@1.0.0)
+[![npm version](https://badge.fury.io/js/@lls/react-light-calendar.svg)](https://badge.fury.io/js/@lls/react-light-calendar)
+</center>
 
 ---------------------------------------
 
@@ -13,36 +20,43 @@
 
 ## Navigation 🗺️ :
 
-* 🤔 [Why](#why--)
-* ✍️ [How to use](#how-to-use--)
-* 👀 [Demo](#demo--)
-* ✅ [Compatibility](#compatibility--)
-	* [react / react-dom](#react--react-dom-)
-	* [Browsers](#broswers-)
-* 📖 [API](#api--)
-	* [startDate](#startdate-)
-	* [endDate](#enddate-)
-	* [range](#enddate-)
-	* [onChange](#onchange-)
-	* [disableDates](#disabledates-)
-	* [displayTime](#displaytime-)
-	* [dayLabels](#daylabels-)
-	* [monthLabels](#monthlabels-)
-* 📋 [Examples](#examples--)
-	* [Basic example](#basic-example-)
-	* [Good practice example](#good-practice-example-)
-	* [Input example](#input-example-)
-* 💻 [Development](#development--)
-* 🖋 [License](#license--)
+<!-- TOC -->
 
-## Why 🤔 :
+- [@lls/react-light-calendar](#llsreact-light-calendar)
+  - [Navigation 🗺️ :](#navigation-🗺️-)
+  - [Why 🤔](#why-🤔)
+  - [How to use ✍️](#how-to-use-✍️)
+  - [Demo 👀](#demo-👀)
+  - [Compatibility ✅](#compatibility-✅)
+    - [react / react-dom](#react--react-dom)
+    - [Browsers](#browsers)
+  - [API 📖](#api-📖)
+    - [startDate](#startdate)
+    - [endDate](#enddate)
+    - [range](#range)
+    - [onChange](#onchange)
+    - [disableDates](#disabledates)
+    - [displayTime](#displaytime)
+    - [dayLabels](#daylabels)
+    - [monthLabels](#monthlabels)
+    - [timezone](#timezone)
+  - [Examples 📋](#examples-📋)
+    - [Basic example](#basic-example)
+    - [Good practice example](#good-practice-example)
+    - [Input example](#input-example)
+  - [Development 💻](#development-💻)
+  - [License 🖋](#license-🖋)
+
+<!-- /TOC -->
+
+## Why 🤔
 
 Because most calendar components depend on **heavy** date library. This make the bundle become **very big** and if forces you to his **date library dependence**.
 This can be a huge problem on big projects that already have had **a lot of dependencies**, especially for projects that use **another date library**.
 
 The purpose of `@lls/react-light-calendar` is to propose a **minimalistic** and **powerful** component to be able to be used on any project.
 
-## How to use ✍️ :
+## How to use ✍️
 
 Install `@lls/react-light-calendar` via npm :
 
@@ -68,13 +82,13 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 ❗️Notice the style `import`. If you want to use a custom style, just remove this line and use your own style.
 
 
-## Demo 👀 :
+## Demo 👀
 
 A [storybook](https://github.com/storybooks/storybook) demo is available [here](https://lelivrescolaire.github.io/react-light-calendar/?selectedKind=Calendar&selectedStory=onChange&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel).
 
-## Compatibility ✅ :
+## Compatibility ✅
 
-### react / react-dom :
+### react / react-dom
 
 `@lls/react-light-calendar` has [react](https://github.com/facebook/react) and [react-dom](https://www.npmjs.com/package/react-dom) as peer dependencies.
 
@@ -86,7 +100,7 @@ A [storybook](https://github.com/storybooks/storybook) demo is available [here](
 
 ---------------------------------------
 
-### Browsers :
+### Browsers
 
 According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS).
 
@@ -94,11 +108,11 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 |:--------- |:-----------|:---------|:---------------------|:---------------|
 | ✅        | ✅        | ✅       | ✅                   | ✅             |
 
-## API 📖 :
+## API 📖
 
 The following list represent all available `@lls/react-light-calendar`'s props.
 
-### startDate :
+### startDate
 * Type : *Int* (timestamp)
 * Default value : *null*
 * Required : *false*
@@ -108,7 +122,7 @@ Default date (timestamp) selected or first date selected if [range](#range-) is 
 
 ---------------------------------------
 
-### endDate :
+### endDate
 * Type : *Int* (timestamp)
 * Default value : *null*
 * Required : *false*
@@ -118,7 +132,7 @@ Last date selected. [range](#range-) must be `true`.
 
 ---------------------------------------
 
-### range :
+### range
 * Type : *Boolean*
 * Default value : *false*
 * Required : *false*
@@ -128,7 +142,7 @@ Specifiy if range selection is enabled.
 
 ---------------------------------------
 
-### onChange :
+### onChange
 * Type : *Function(startDate [Int], endDate [Int])*
 * Default value : *empty function*
 * Required : *false*
@@ -138,7 +152,7 @@ This function is called every time a day is selected/updated.
 
 ---------------------------------------
 
-### disableDates :
+### disableDates
 * Type : *Function(date [Int])*
 * Default value : *empty function*
 * Required : *false*
@@ -154,7 +168,7 @@ Example, disabled all passed day :
 
 ---------------------------------------
 
-### displayTime :
+### displayTime
 * Type : *Boolean*
 * Default value : *false*
 * Required : *false*
@@ -164,7 +178,7 @@ If time input must be displayed.
 
 ---------------------------------------
 
-### dayLabels :
+### dayLabels
 * Type : *Array[String]*
 * Default value : `['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']`
 * Required : *false*
@@ -174,7 +188,7 @@ Days name, starting with Monday.
 
 ---------------------------------------
 
-### monthLabels :
+### monthLabels
 * Type : *Array[String]*
 * Default value : `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
 * Required : *false*
@@ -182,9 +196,17 @@ Days name, starting with Monday.
 
 Months name, starting with January.
 
-## Examples 📋 :
+### timezone
+* Type : *String*
+* Default value : `UTC`
+* Required : *false*
+* Available since : *v1.0.0*
 
-### Basic example :
+Calendar timezone.
+
+## Examples 📋
+
+### Basic example
 
 ```javascript
 import ReactLightCalendar from '@lls/react-light-calendar'
@@ -218,7 +240,7 @@ class Calendar extends Component {
 
 ---------------------------------------
 
-### Good practice example :
+### Good practice example
 
 The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
@@ -226,14 +248,14 @@ A fully example is Available [here](./example/GOODPRACTICE.md).
 
 ---------------------------------------
 
-### Input example :
+### Input example
 
 `react-light-component` is delivered with only one component : a calendar.
 If you want to use it like a datetime input, you can follow this [example](./example/INPUT.md).
 
 ![](./images/image-2.gif)
 
-## Development 💻 :
+## Development 💻
 
 ```
 // Clone the project
@@ -255,18 +277,13 @@ npm run build
 npm run size
 ```
 
-## License 🖋 :
+## License 🖋
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
 
 
-<div align="center">
-	<br/>
-	<br/>
-	Developped by
-	<br/>
-	<br/>
-	<a href="https://www.lelivrescolaire.fr/">
-		<img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png" width="200" alt="Lelivrescolaire.fr">
-	</a>
-</div>
+<center>
+Developped with ❤️ by
+
+[![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)](https://www.lelivrescolaire.fr/)
+</center>

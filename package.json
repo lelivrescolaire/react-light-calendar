@@ -1,8 +1,11 @@
 {
   "name": "@lls/react-light-calendar",
   "version": "1.0.0",
-  "description": "🗓 A lightweight calendar for React (~4 kb)",
+  "description": "🗓 A lightweight calendar for React (~3 kb)",
   "main": "dist/index.js",
+  "files": [
+    "/dist"
+  ],
   "scripts": {
     "lint": "$(npm bin)/eslint src",
     "storybook": "start-storybook -p 9009",
@@ -10,8 +13,8 @@
     "build": "rm -rf dist && rollup -c",
     "size": "size-limit",
     "test": "jest",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "storybook-to-ghpages",
+    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size"
   },
   "repository": {
     "type": "git",
@@ -24,7 +27,8 @@
     "lightweight",
     "date",
     "time",
-    "datetime"
+    "datetime",
+    "timezone"
   ],
   "author": "Arnaud CETOUTE",
   "license": "MIT",
@@ -33,9 +37,9 @@
   },
   "homepage": "https://github.com/lelivrescolaire/react-light-calendar#readme",
   "dependencies": {
-    "dayjs": "^1.7.5",
     "lodash.times": "4.3.2",
-    "prop-types": "15.6.0"
+    "prop-types": "15.6.0",
+    "timestamp-utils": "2.1.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.14",
@@ -43,7 +47,6 @@
     "@storybook/addons": "3.3.14",
     "@storybook/react": "3.3.14",
     "@storybook/storybook-deployer": "2.3.0",
-    "all-contributors-cli": "^5.0.0",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.3",
@@ -54,7 +57,6 @@
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "chai": "4.1.2",
-    "conventional-changelog": "2.0.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-15": "1.0.5",
     "eslint": "4.19.0",
@@ -64,6 +66,7 @@
     "eslint-plugin-promise": "3.7.0",
     "eslint-plugin-react": "7.8.2",
     "eslint-plugin-standard": "3.1.0",
+    "husky": "1.1.4",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.0.0",
     "jest-environment-enzyme": "6.0.1",
@@ -96,6 +99,11 @@
     },
     "moduleNameMapper": {
       "\\.css$": "identity-obj-proxy"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test"
     }
   }
 }

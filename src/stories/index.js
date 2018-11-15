@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import t from 'timestamp-utils'
 import { storiesOf } from '@storybook/react'
 import Calendar from '../index'
 
@@ -25,12 +25,16 @@ class OnChange extends Component {
 
   render = () => {
     const { startDate, endDate } = this.state
+    const sDecompose = t.decompose(startDate)
+    const eDecompose = t.decompose(endDate)
+    const sDate = `${sDecompose[0]}/${sDecompose[1]}/${sDecompose[2]} ${sDecompose[3]}:${sDecompose[4]}`
+    const eDate = `${eDecompose[0]}/${eDecompose[1]}/${eDecompose[2]} ${eDecompose[3]}:${eDecompose[4]}`
 
     return (
       <div>
-        <Calendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime key='calendar' />
-        <div key='start-date'>START DATE : {startDate && new Date(startDate).toString()}</div>
-        <div key='end-date'>END DATE : {endDate && new Date(endDate).toString()}</div>
+        <Calendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
+        <div key='start-date'>START DATE : {startDate && sDate}</div>
+        <div key='end-date'>END DATE : {endDate && eDate}</div>
       </div>
     )
   }
@@ -67,6 +71,28 @@ class InputJS extends Component {
     </div>
 }
 
+class Timezone extends Component{
+  state = { tz: 'UTC' }
+
+  changeTimezone = tz => this.setState({ tz })
+
+  render = () => {
+    const { tz } = this.state
+
+    return (
+      <div>
+        <Calendar displayTime timezone={tz} startDate={new Date().getTime()} />
+        <p>Current timezone : {tz}</p>
+        <hr />
+        <p>Choose a timezone :</p>
+        <button onClick={() => this.changeTimezone('UTC')}>UTC</button>
+        <button onClick={() => this.changeTimezone('Pacific/Guadalcanal')}>Pacific/Guadalcanal (UTC +11)</button>
+        <button onClick={() => this.changeTimezone('Pacific/Niue')}>Pacific/Niue (UTC -11)</button>
+      </div>
+    )
+  }
+}
+
 storiesOf('Calendar', module)
   .add('default', () => <Calendar startDate={783212400000} />)
   .add('onChange', () => <OnChange />)
@@ -76,3 +102,4 @@ storiesOf('Calendar', module)
   .add('disable dates', () => <Calendar disableDates={date => date < new Date().getTime()} />)
   .add('input (css)', () => <InputCSS />)
   .add('input (js)', () => <InputJS />)
+  .add('timezone', () => <Timezone />)
