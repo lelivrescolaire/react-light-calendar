@@ -14,7 +14,8 @@
     "size": "size-limit",
     "test": "jest",
     "deploy-storybook": "storybook-to-ghpages",
-    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size"
+    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size",
+    "postpublish": "npm run deploy-storybook"
   },
   "repository": {
     "type": "git",

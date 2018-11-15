@@ -1,10 +1,10 @@
 <div align="center">
- 
+
 ![](./images/logo-rlc.png)
 
 # @lls/react-light-calendar
 
-🗓 A lightweight calendar for React (~3 kb)
+🗓 A lightweight calendar for React (~3 kb) [](https://lelivrescolaire.github.io/react-light-calendar/?selectedKind=Calendar&selectedStory=onChange&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
 
 
 ![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
@@ -18,7 +18,11 @@
 `@lls/react-light-calendar` is a **tiny** calendar component which **does NOT depend** on any date lib.
 `@lls/react-light-calendar` use **timestamp** format date which allows it to be coupled with any date lib.
 
+<div align="center">
+
 ![](./images/image-1.gif)
+
+</div>
 
 ## Navigation 🗺️ :
 
@@ -286,6 +290,6 @@ npm run size
 
 <div align="center">
 Developped with ❤️ by
-
-[![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)](https://www.lelivrescolaire.fr/)
+<br/>
+<a href='https://www.lelivrescolaire.fr/'><img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.svg" alt="drawing" width="200"/></a>
 </div>
