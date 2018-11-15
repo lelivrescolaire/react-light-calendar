@@ -5,7 +5,7 @@
 
 
 ![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
-![](http://img.badgesize.io/lelivrescolaire/react-light-calendar/master/dist/index.js?compression=gzip)
+[![Bundlephobia](https://badgen.net/bundlephobia/minzip/@lls/react-light-calendar](https://bundlephobia.com/result?p=@lls/react-light-calendar@1.0.0)
 </center>
 
 ---------------------------------------

@@ -13,7 +13,6 @@
     "build": "rm -rf dist && rollup -c",
     "size": "size-limit",
     "test": "jest",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
@@ -27,7 +26,8 @@
     "lightweight",
     "date",
     "time",
-    "datetime"
+    "datetime",
+    "timezone"
   ],
   "author": "Arnaud CETOUTE",
   "license": "MIT",
@@ -38,7 +38,7 @@
   "dependencies": {
     "lodash.times": "4.3.2",
     "prop-types": "15.6.0",
-    "timestamp-utils": "^2.1.0"
+    "timestamp-utils": "2.1.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "3.3.14",
@@ -56,7 +56,6 @@
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "chai": "4.1.2",
-    "conventional-changelog": "2.0.0",
     "enzyme": "3.3.0",
     "enzyme-adapter-react-15": "1.0.5",
     "eslint": "4.19.0",
