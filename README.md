@@ -10,6 +10,7 @@
 ![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
 [![Bundlephobia](https://badgen.net/bundlephobia/minzip/@lls/react-light-calendar](https://bundlephobia.com/result?p=@lls/react-light-calendar@1.0.0)
 [![npm version](https://badge.fury.io/js/@lls/react-light-calendar.svg)](https://badge.fury.io/js/@lls/react-light-calendar)
+
 </center>
 
 ---------------------------------------
