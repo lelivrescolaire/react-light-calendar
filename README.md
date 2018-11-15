@@ -1,4 +1,4 @@
-<center>
+<div align="center">
  
 ![](./images/logo-rlc.png)
 
@@ -11,7 +11,7 @@
 [![Bundlephobia](https://badgen.net/bundlephobia/minzip/@lls/react-light-calendar](https://bundlephobia.com/result?p=@lls/react-light-calendar@1.0.0)
 [![npm version](https://badge.fury.io/js/@lls/react-light-calendar.svg)](https://badge.fury.io/js/@lls/react-light-calendar)
 
-</center>
+</div>
 
 ---------------------------------------
 
@@ -284,8 +284,8 @@ npm run size
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
 
 
-<center>
+<div align="center">
 Developped with ❤️ by
 
 [![](https://www.lelivrescolaire.fr/assets/img/home/logo_lls.png)](https://www.lelivrescolaire.fr/)
-</center>
+</div>
