@@ -290,6 +290,7 @@ npm run size
 
 <div align="center">
 Developped with ❤️ by
-<br/>
+<br />
+<br />
 <a href='https://www.lelivrescolaire.fr/'><img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.svg" alt="drawing" width="200"/></a>
 </div>

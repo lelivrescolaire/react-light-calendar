@@ -72,8 +72,8 @@
     "jest": "23.0.0",
     "jest-environment-enzyme": "6.0.1",
     "jest-enzyme": "6.0.1",
-    "react": "15.6.2",
-    "react-dom": "15.6.2",
+    "react": "16.3.0",
+    "react-dom": "16.3.0",
     "react-test-renderer": "15.6.1",
     "rollup": "0.59.1",
     "rollup-plugin-auto-external": "1.2.0",
@@ -86,8 +86,8 @@
     "size-limit": "0.18.1"
   },
   "peerDependencies": {
-    "react": "<=15.6.2",
-    "react-dom": "<=15.6.2"
+    "react": ">=16.3.0",
+    "react-dom": ">=16.3.0"
   },
   "jest": {
     "setupFiles": [

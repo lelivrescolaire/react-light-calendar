@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 import t from 'timestamp-utils'
@@ -10,7 +10,7 @@ import MonthWrapper from './MonthWrapper'
 // Styles
 import './index.css'
 
-class Calendar extends Component {
+class Calendar extends PureComponent {
   constructor (props) {
     super(props)
     t.setTimezone(props.timezone)
@@ -20,12 +20,12 @@ class Calendar extends Component {
     }
   }
 
-  componentWillReceiveProps = nextProps => {
-    if (nextProps.timezone !== this.props.timezone) {
-      t.setTimezone(nextProps.timezone)
-      this.setState(initMonth(nextProps.startDate))
-    }
-    this.setState(parseRange(nextProps.startDate, nextProps.endDate, nextProps.range))
+  static getDerivedStateFromProps ({ timezone, startDate, endDate, range }) {
+    t.setTimezone(timezone)
+    return ({
+      ...initMonth(startDate),
+      ...parseRange(startDate, endDate, range)
+    })
   }
 
   onClickDay = day => {
