@@ -59,7 +59,7 @@
     "babel-preset-stage-0": "6.24.1",
     "chai": "4.1.2",
     "enzyme": "3.3.0",
-    "enzyme-adapter-react-15": "1.0.5",
+    "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.0",
     "eslint-config-standard": "11.0.0",
     "eslint-plugin-import": "2.12.0",
@@ -96,7 +96,7 @@
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
     "testEnvironment": "enzyme",
     "testEnvironmentOptions": {
-      "enzymeAdapter": "react15"
+      "enzymeAdapter": "react16"
     },
     "moduleNameMapper": {
       "\\.css$": "identity-obj-proxy"
