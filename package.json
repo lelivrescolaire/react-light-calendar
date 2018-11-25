@@ -1,6 +1,6 @@
 {
   "name": "@lls/react-light-calendar",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "🗓 A lightweight calendar for React (~3 kb)",
   "main": "dist/index.js",
   "files": [
@@ -11,7 +11,7 @@
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook",
     "build": "rm -rf dist && rollup -c",
-    "size": "size-limit",
+    "size": "npm run build && size-limit",
     "test": "jest",
     "deploy-storybook": "storybook-to-ghpages",
     "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size",
@@ -39,7 +39,7 @@
   "homepage": "https://github.com/lelivrescolaire/react-light-calendar#readme",
   "dependencies": {
     "lodash.times": "4.3.2",
-    "prop-types": "15.6.0",
+    "prop-types": "15.6.2",
     "timestamp-utils": "2.1.0"
   },
   "devDependencies": {

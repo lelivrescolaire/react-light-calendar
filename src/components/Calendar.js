@@ -11,14 +11,7 @@ import MonthWrapper from './MonthWrapper'
 import './index.css'
 
 class Calendar extends PureComponent {
-  constructor (props) {
-    super(props)
-    t.setTimezone(props.timezone)
-    this.state = {
-      ...initMonth(props.startDate),
-      ...parseRange(props.startDate, props.endDate, props.range)
-    }
-  }
+  state = {}
 
   static getDerivedStateFromProps ({ timezone, startDate, endDate, range }) {
     t.setTimezone(timezone)
@@ -37,9 +30,6 @@ class Calendar extends PureComponent {
       else this.update({ startDate: day, endDate: null })
     } else this.update({ startDate: day, endDate: null })
   }
-
-  onStartTimeChange = date => this.update({ startDate: date })
-  onEndTimeChange = date => this.update({ endDate: date })
 
   changeMonth = ({ yearOffset = 0, monthOffset = 0 }) => {
     const { firstMonthDay } = this.state
@@ -94,8 +84,7 @@ class Calendar extends PureComponent {
           dayLabels={dayLabels}
           monthLabels={monthLabels}
           displayTime={displayTime}
-          onStartTimeChange={this.onStartTimeChange}
-          onEndTimeChange={this.onEndTimeChange}
+          onTimeChange={this.update}
         />
         <MonthWrapper
           monthLabels={monthLabels}
