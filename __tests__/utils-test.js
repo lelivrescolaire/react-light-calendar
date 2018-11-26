@@ -17,7 +17,7 @@ test('Utils - initMonth', () => {
 
 test('Utils - parseRange', () => {
   // parse 09 Octobre 1992 and 08 Juillet 2016
-  const state = parseRange(718585200000, 1467993600000, true)
+  const state = parseRange(718585200000, 1467993600000)
 
   expect(state).to.have.property('startDate', 718585200000)
   expect(state).to.have.property('endDate', 1467993600000)
@@ -25,18 +25,10 @@ test('Utils - parseRange', () => {
 
 test('Utils - parseRange with inverted dates', () => {
   // parse 08 Juillet 2016 and 09 Octobre 1992
-  const state = parseRange(1467993600000, 718585200000, true)
+  const state = parseRange(1467993600000, 718585200000)
 
   expect(state).to.have.property('startDate', 718585200000)
   expect(state).to.have.property('endDate', 1467993600000)
-})
-
-test('Utils - parseRange with range = false', () => {
-  // parse 09 Octobre 1992 and 08 Juillet 2016
-  const state = parseRange(718585200000, 1467993600000, false)
-
-  expect(state).to.have.property('startDate', 718585200000)
-  expect(state).to.have.property('endDate', null)
 })
 
 test('Utils - getDays', () => {

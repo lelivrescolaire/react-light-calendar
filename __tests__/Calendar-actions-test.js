@@ -28,9 +28,9 @@ test('Actions - Click on tommorow day', () => {
   expect(onChange.calledWith(tommorowTimestamp, null)).to.be.equal(true)
 })
 
-test('Actions - Select range "yesterday to tommorow" and "today to before yesterday"', () => {
+test('Actions - Select "yesterday to tommorow" and "today to before yesterday"', () => {
   const onChange = spy()
-  const calendar = mount(<Calendar onChange={onChange} range />)
+  const calendar = mount(<Calendar onChange={onChange} />)
 
   const today = calendar.find('.rlc-day-today')
   const [, timestamp] = today.props().className.match(/rlc-day-(\d{13})/)

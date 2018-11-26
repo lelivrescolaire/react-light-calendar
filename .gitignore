@@ -2,4 +2,5 @@
 dist/
 node_modules
 .yarn-metadata.json
+yarn.lock
 package-lock.json

@@ -1,6 +1,6 @@
 {
   "name": "@lls/react-light-calendar",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "🗓 A lightweight calendar for React (~3 kb)",
   "main": "dist/index.js",
   "files": [
@@ -11,7 +11,7 @@
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook",
     "build": "rm -rf dist && rollup -c",
-    "size": "size-limit",
+    "size": "npm run build && size-limit",
     "test": "jest",
     "deploy-storybook": "storybook-to-ghpages",
     "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size",
@@ -39,7 +39,7 @@
   "homepage": "https://github.com/lelivrescolaire/react-light-calendar#readme",
   "dependencies": {
     "lodash.times": "4.3.2",
-    "prop-types": "15.6.0",
+    "prop-types": "15.6.2",
     "timestamp-utils": "2.1.0"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
     "babel-preset-stage-0": "6.24.1",
     "chai": "4.1.2",
     "enzyme": "3.3.0",
-    "enzyme-adapter-react-15": "1.0.5",
+    "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.0",
     "eslint-config-standard": "11.0.0",
     "eslint-plugin-import": "2.12.0",
@@ -72,8 +72,8 @@
     "jest": "23.0.0",
     "jest-environment-enzyme": "6.0.1",
     "jest-enzyme": "6.0.1",
-    "react": "15.6.2",
-    "react-dom": "15.6.2",
+    "react": "16.3.0",
+    "react-dom": "16.3.0",
     "react-test-renderer": "15.6.1",
     "rollup": "0.59.1",
     "rollup-plugin-auto-external": "1.2.0",
@@ -86,8 +86,8 @@
     "size-limit": "0.18.1"
   },
   "peerDependencies": {
-    "react": "<=15.6.2",
-    "react-dom": "<=15.6.2"
+    "react": ">=16.3.0",
+    "react-dom": ">=16.3.0"
   },
   "jest": {
     "setupFiles": [
@@ -96,7 +96,7 @@
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
     "testEnvironment": "enzyme",
     "testEnvironmentOptions": {
-      "enzymeAdapter": "react15"
+      "enzymeAdapter": "react16"
     },
     "moduleNameMapper": {
       "\\.css$": "identity-obj-proxy"

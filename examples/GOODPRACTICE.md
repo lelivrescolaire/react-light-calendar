@@ -67,7 +67,6 @@ class ComponentUsingCalendar extends Component {
     <Calendar
       startDate={this.DEFAULT_START_DATE}
       endDate={this.DEFAULT_END_DATE}
-      range
     />
   )
 }
