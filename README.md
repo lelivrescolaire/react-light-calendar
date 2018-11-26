@@ -250,7 +250,7 @@ class Calendar extends Component {
 
 The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
-A fully example is Available [here](./example/GOODPRACTICE.md).
+A fully example is available [here](./example/GOODPRACTICE.md).
 
 ---------------------------------------
 
