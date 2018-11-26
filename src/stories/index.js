@@ -3,11 +3,11 @@ import t from 'timestamp-utils'
 import { storiesOf } from '@storybook/react'
 import Calendar from '../index'
 
-const DefaultValueRange = () => {
+const DefaultValues = () => {
   const date = new Date()
   const startDate = date.getTime()
   const endDate = new Date(startDate).setDate(date.getDate() + 6)
-  return <Calendar startDate={startDate} endDate={endDate} range />
+  return <Calendar startDate={startDate} endDate={endDate} />
 }
 
 class OnChange extends Component {
@@ -32,7 +32,7 @@ class OnChange extends Component {
 
     return (
       <div>
-        <Calendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
+        <Calendar startDate={startDate} endDate={endDate} onChange={this.onChange} displayTime />
         <div key='start-date'>START DATE : {startDate && sDate}</div>
         <div key='end-date'>END DATE : {endDate && eDate}</div>
       </div>
@@ -97,7 +97,7 @@ storiesOf('Calendar', module)
   .add('default', () => <Calendar />)
   .add('onChange', () => <OnChange />)
   .add('default value', () => <Calendar startDate={new Date().getTime()} />)
-  .add('default values (range)', () => <DefaultValueRange />)
+  .add('default values', () => <DefaultValues />)
   .add('with time', () => <Calendar startDate={new Date().getTime()} displayTime />)
   .add('disable dates', () => <Calendar disableDates={date => date < new Date().getTime()} />)
   .add('input (css)', () => <InputCSS />)

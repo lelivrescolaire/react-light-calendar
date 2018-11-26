@@ -4,8 +4,8 @@ import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithou
 import t from 'timestamp-utils'
 
 // Components
-import Details from './Details'
-import MonthWrapper from './MonthWrapper'
+import DateDetails from './DateDetails'
+import Navigation from './Navigation'
 
 // Styles
 import './index.css'
@@ -13,22 +13,19 @@ import './index.css'
 class Calendar extends PureComponent {
   state = {}
 
-  static getDerivedStateFromProps ({ timezone, startDate, endDate, range }) {
+  static getDerivedStateFromProps ({ timezone, startDate, endDate }) {
     t.setTimezone(timezone)
     return ({
       ...initMonth(startDate),
-      ...parseRange(startDate, endDate, range)
+      ...parseRange(startDate, endDate)
     })
   }
 
   onClickDay = day => {
-    const { range } = this.props
     const { startDate, endDate } = this.state
-    if (range) {
-      if (!startDate) this.update({ startDate: day })
-      else if (startDate && !endDate) this.update(parseRange(startDate, day, range))
-      else this.update({ startDate: day, endDate: null })
-    } else this.update({ startDate: day, endDate: null })
+    if (!startDate) this.update({ startDate: day })
+    else if (startDate && !endDate) this.update(parseRange(startDate, day))
+    else this.update({ startDate: day, endDate: null })
   }
 
   changeMonth = ({ yearOffset = 0, monthOffset = 0 }) => {
@@ -36,12 +33,6 @@ class Calendar extends PureComponent {
     const timestamp = t.add(firstMonthDay, { months: monthOffset, years: yearOffset })
     this.setState(initMonth(timestamp))
   }
-
-  prevYear = () => this.changeMonth({ yearOffset: -1 })
-  prevMonth = () => this.changeMonth({ monthOffset: -1 })
-
-  nextYear = () => this.changeMonth({ yearOffset: 1 })
-  nextMonth = () => this.changeMonth({ monthOffset: 1 })
 
   update = ({ startDate, endDate }) => {
     const sDate = startDate === undefined ? this.props.startDate : startDate
@@ -74,26 +65,35 @@ class Calendar extends PureComponent {
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { startDate, endDate, onChange, range, disableDates, displayTime, dayLabels, monthLabels, timezone, ...props } = this.props
+    const { startDate, endDate, onChange, disableDates, displayTime, dayLabels, monthLabels, timezone, ...props } = this.props
 
     return (
       <div className="rlc-calendar" {...props}>
-        <Details
-          startDate={sDate}
-          endDate={eDate}
-          dayLabels={dayLabels}
-          monthLabels={monthLabels}
-          displayTime={displayTime}
-          onTimeChange={this.update}
-        />
-        <MonthWrapper
+        <div className="rlc-details">
+          {sDate &&
+            <DateDetails
+              dayLabels={dayLabels}
+              monthLabels={monthLabels}
+              date={sDate}
+              displayTime={displayTime}
+              onTimeChange={date => this.update({ startDate: date })}
+            />
+          }
+          {eDate &&
+            <DateDetails
+              dayLabels={dayLabels}
+              monthLabels={monthLabels}
+              date={eDate}
+              displayTime={displayTime}
+              onTimeChange={date => this.update({ endDate: date })}
+            />
+          }
+        </div>
+        <Navigation
           monthLabels={monthLabels}
           month={month}
           year={year}
-          prevYear={this.prevYear}
-          prevMonth={this.prevMonth}
-          nextYear={this.nextYear}
-          nextMonth={this.nextMonth}
+          onChange={this.changeMonth}
         />
         <div className="rlc-days-label">
           {dayLabels.map(label => <div className="rlc-day-label" key={label.toLowerCase()}>{label.slice(0, 2)}</div>)}
@@ -118,7 +118,6 @@ Calendar.defaultProps = {
   startDate: null,
   endDate: null,
   onChange: () => {},
-  range: false,
   disableDates: () => false,
   displayTime: false,
   dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
@@ -130,11 +129,10 @@ Calendar.propTypes = {
   startDate: number,
   endDate: number,
   onChange: func,
-  range: bool,
   disableDates: func,
   displayTime: bool,
-  dayLabels: arrayOf(string).isRequired,
-  monthLabels: arrayOf(string).isRequired,
+  dayLabels: arrayOf(string),
+  monthLabels: arrayOf(string),
   timezone: string
 }
 

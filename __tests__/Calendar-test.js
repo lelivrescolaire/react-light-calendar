@@ -35,7 +35,7 @@ test('Default - Set startDate prop', () => {
 
 test('Default - Set startDate and endDate props', () => {
   // Set startDate to Friday 09 Octobre 1992 and endDate to Sunday 11 Octobre 1992
-  const calendar = mount(<Calendar startDate={718588800000} endDate={718761600000} range />)
+  const calendar = mount(<Calendar startDate={718588800000} endDate={718761600000} />)
   const startDay = calendar.find('.rlc-day-718588800000')
   const endDay = calendar.find('.rlc-day-718761600000')
   expect(startDay.hasClass('rlc-day-start-selection')).to.equal(true)

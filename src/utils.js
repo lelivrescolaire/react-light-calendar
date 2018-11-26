@@ -25,9 +25,9 @@ export const initMonth = timestamp => {
   }
 }
 
-export const parseRange = (startDate, endDate, range) => ({
-  startDate: endDate && range ? Math.min(startDate, endDate) : startDate,
-  endDate: endDate && range && (endDate !== startDate) ? Math.max(startDate, endDate) : null
+export const parseRange = (startDate, endDate) => ({
+  startDate: endDate ? Math.min(startDate, endDate) : startDate,
+  endDate: endDate && (endDate !== startDate) ? Math.max(startDate, endDate) : null
 })
 
 export const getDays = firstDay => times(DAYS_TO_DISPLAY_PER_MONTH, i => t.addDays(firstDay, i))

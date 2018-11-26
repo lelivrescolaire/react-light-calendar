@@ -36,10 +36,10 @@
   - [Compatibility ✅](#compatibility-✅)
     - [react / react-dom](#react--react-dom)
     - [Browsers](#browsers)
+  - [Changelog 🗒️](#changelog-🗒️)
   - [API 📖](#api-📖)
     - [startDate](#startdate)
     - [endDate](#enddate)
-    - [range](#range)
     - [onChange](#onchange)
     - [disableDates](#disabledates)
     - [displayTime](#displaytime)
@@ -102,7 +102,7 @@ A [storybook](https://github.com/storybooks/storybook) demo is available [here](
 | @lls/react-light-calendar | react / react-dom |
 |:------------------------- |:------------------|
 | 1.x                       | <= 15.6.2         |
-| 2.x                       | >= 16.0.0         |
+| 2.x                       | >= 16.3.0         |
 
 ---------------------------------------
 
@@ -114,6 +114,16 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 |:--------- |:-----------|:---------|:---------------------|:---------------|
 | ✅        | ✅        | ✅       | ✅                   | ✅             |
 
+---------------------------------------
+
+## Changelog 🗒️
+
+* v2.0.0 :
+  - `@lls/react-light-calendar` now use `react@16.3.0` and `react-dom@16.3.0` as peer dependencies.
+  - `range` prop is deprecated.
+
+---------------------------------------
+
 ## API 📖
 
 The following list represent all available `@lls/react-light-calendar`'s props.
@@ -124,7 +134,7 @@ The following list represent all available `@lls/react-light-calendar`'s props.
 * Required : *false*
 * Available since : *v1.0.0*
 
-Default date (timestamp) selected or first date selected if [range](#range-) is `true`.
+Default date (timestamp) selected or first date selected if [endDate](#endDate-) is defined.
 
 ---------------------------------------
 
@@ -134,17 +144,7 @@ Default date (timestamp) selected or first date selected if [range](#range-) is 
 * Required : *false*
 * Available since : *v1.0.0*
 
-Last date selected. [range](#range-) must be `true`.
-
----------------------------------------
-
-### range
-* Type : *Boolean*
-* Default value : *false*
-* Required : *false*
-* Available since : *v1.0.0*
-
-Specifiy if range selection is enabled.
+Last date selected.
 
 ---------------------------------------
 
