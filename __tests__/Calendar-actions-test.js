@@ -28,9 +28,9 @@ test('Actions - Click on tommorow day', () => {
   expect(onChange.calledWith(tommorowTimestamp, null)).to.be.equal(true)
 })
 
-test('Actions - Select range "yesterday to tommorow" and "today to before yesterday"', () => {
+test('Actions - Select "yesterday to tommorow" and "today to before yesterday"', () => {
   const onChange = spy()
-  const calendar = mount(<Calendar onChange={onChange} range />)
+  const calendar = mount(<Calendar onChange={onChange} />)
 
   const today = calendar.find('.rlc-day-today')
   const [, timestamp] = today.props().className.match(/rlc-day-(\d{13})/)
@@ -104,7 +104,8 @@ test('Actions - Click next month', () => {
   nextMonthButton.simulate('click')
 
   const monthElement = calendar.find('.rlc-month-and-year')
-  const nextMonthIndex = new Date().getMonth() + 1
+  const month = new Date().getMonth()
+  const nextMonthIndex = month === 11 ? 0 : month + 1
   const nextMonth = MONTH_LABELS[nextMonthIndex]
   // If nextMonth is in next year add 1 to current year
   const year = new Date().getFullYear() + (nextMonthIndex === 0 ? 1 : 0)
@@ -118,7 +119,8 @@ test('Actions - Click prev month', () => {
   prevMonthButton.simulate('click')
 
   const monthElement = calendar.find('.rlc-month-and-year')
-  const prevMonthIndex = new Date().getMonth() - 1
+  const month = new Date().getMonth()
+  const prevMonthIndex = month === 0 ? 11 : month - 1
   const prevMonth = MONTH_LABELS[prevMonthIndex]
   // If prevMonth is in previous year substract 1 to current year
   const year = new Date().getFullYear() - (prevMonthIndex === MONTH_LABELS.length - 1 ? 1 : 0)

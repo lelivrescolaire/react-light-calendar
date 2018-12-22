@@ -36,10 +36,10 @@
   - [Compatibility ✅](#compatibility-✅)
     - [react / react-dom](#react--react-dom)
     - [Browsers](#browsers)
+  - [Changelog 🗒️](#changelog-🗒️)
   - [API 📖](#api-📖)
     - [startDate](#startdate)
     - [endDate](#enddate)
-    - [range](#range)
     - [onChange](#onchange)
     - [disableDates](#disabledates)
     - [displayTime](#displaytime)
@@ -113,6 +113,16 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 |:--------- |:-----------|:---------|:---------------------|:---------------|
 | ✅        | ✅        | ✅       | ✅                   | ✅             |
 
+---------------------------------------
+
+## Changelog 🗒️
+
+* v2.0.0 :
+  - `@lls/react-light-calendar` now use `react@16.3.0` and `react-dom@16.3.0` as peer dependencies.
+  - `range` prop is deprecated.
+
+---------------------------------------
+
 ## API 📖
 
 The following list represent all available `@lls/react-light-calendar`'s props.
@@ -123,7 +133,7 @@ The following list represent all available `@lls/react-light-calendar`'s props.
 * Required : *false*
 * Available since : *v1.0.0*
 
-Default date (timestamp) selected or first date selected if [range](#range-) is `true`.
+Default date (timestamp) selected or first date selected if [endDate](#endDate-) is defined.
 
 ---------------------------------------
 
@@ -133,17 +143,7 @@ Default date (timestamp) selected or first date selected if [range](#range-) is 
 * Required : *false*
 * Available since : *v1.0.0*
 
-Last date selected. [range](#range-) must be `true`.
-
----------------------------------------
-
-### range
-* Type : *Boolean*
-* Default value : *false*
-* Required : *false*
-* Available since : *v1.0.0*
-
-Specifiy if range selection is enabled.
+Last date selected.
 
 ---------------------------------------
 
@@ -249,7 +249,7 @@ class Calendar extends Component {
 
 The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
-A fully example is Available [here](./example/GOODPRACTICE.md).
+A fully example is available [here](./example/GOODPRACTICE.md).
 
 ---------------------------------------
 
@@ -289,6 +289,7 @@ npm run size
 
 <div align="center">
 Developped with ❤️ by
-<br/>
+<br />
+<br />
 <a href='https://www.lelivrescolaire.fr/'><img src="https://www.lelivrescolaire.fr/assets/img/home/logo_lls.svg" alt="drawing" width="200"/></a>
 </div>
