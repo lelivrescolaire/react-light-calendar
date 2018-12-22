@@ -117,10 +117,6 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 
 ## Changelog 🗒️
 
-* v2.0.0 :
-  - `@lls/react-light-calendar` now use `react@16.3.0` and `react-dom@16.3.0` as peer dependencies.
-  - `range` prop is deprecated.
-
 ---------------------------------------
 
 ## API 📖
