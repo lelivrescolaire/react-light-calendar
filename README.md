@@ -101,8 +101,7 @@ A [storybook](https://github.com/storybooks/storybook) demo is available [here](
 
 | @lls/react-light-calendar | react / react-dom |
 |:------------------------- |:------------------|
-| 1.x                       | <= 15.6.2         |
-| 2.x                       | >= 16.0.0         |
+| 1.x                       | >= 16.3.0         |
 
 ---------------------------------------
 
