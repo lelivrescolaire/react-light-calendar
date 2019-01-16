@@ -245,14 +245,14 @@ class Calendar extends Component {
 
 The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
-A fully example is available [here](./example/GOODPRACTICE.md).
+A fully example is available [here](./examples/GOODPRACTICE.md).
 
 ---------------------------------------
 
 ### Input example
 
 `react-light-component` is delivered with only one component : a calendar.
-If you want to use it like a datetime input, you can follow this [example](./example/INPUT.md).
+If you want to use it like a datetime input, you can follow this [examples](./example/INPUT.md).
 
 ![](./images/image-2.gif)
 
