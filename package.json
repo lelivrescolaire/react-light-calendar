@@ -10,7 +10,7 @@
     "lint": "$(npm bin)/eslint src",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook",
-    "build": "rm -rf dist && rollup -c",
+    "build": "rm -rf dist && rollup -c && cp package.json dist/package.json",
     "size": "npm run build && size-limit",
     "test": "jest",
     "deploy-storybook": "storybook-to-ghpages",
