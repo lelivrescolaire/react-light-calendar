@@ -161,3 +161,14 @@
 .rlc-separator{
   margin: 0px 5px;
 }
+
+.marked-day::after{
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgb(189, 189, 189);
+  margin-top: 11.5px;
+  z-index: 1;
+  position: absolute;
+}

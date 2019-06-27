@@ -95,6 +95,30 @@ class Timezone extends Component{
   }
 }
 
+class MarkedDays extends Component{
+  state = {
+    oneDay: 24*60*60*1000,
+    today: Date.parse(new Date())
+  }
+
+  getDates = () => {
+    const { today, oneDay } = this.state;
+    return [
+      today - (oneDay * 7),
+      today - (oneDay * 4),
+      today - (oneDay * 2),
+      today - (oneDay * 1),
+      today,
+      today + (oneDay * 1),
+      today + (oneDay * 2),
+      today + (oneDay * 5),
+      today + (oneDay * 6),
+    ]
+  }
+
+  render = () => <Calendar markedDays={this.getDates()} />
+}
+
 storiesOf('Calendar', module)
   .add('default', () => <Calendar />)
   .add('onChange', () => <OnChange />)
@@ -105,3 +129,4 @@ storiesOf('Calendar', module)
   .add('input (css)', () => <InputCSS />)
   .add('input (js)', () => <InputJS />)
   .add('timezone', () => <Timezone />)
+  .add('marked days', () => <MarkedDays />)
