@@ -7,15 +7,12 @@
     "/dist"
   ],
   "scripts": {
-    "lint": "$(npm bin)/eslint src",
-    "storybook": "start-storybook -p 9009",
+    "start": "start-storybook -p 9009",
+    "build": "npm run clear:dist && $(npm bin)/webpack --mode production",
     "build-storybook": "build-storybook",
-    "build": "rm -rf dist && rollup -c && cp package.json dist/package.json",
-    "size": "npm run build && size-limit",
-    "test": "jest",
-    "deploy-storybook": "storybook-to-ghpages",
-    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size",
-    "postpublish": "npm run deploy-storybook"
+    "size": "npm run build && $(npm bin)/size-limit",
+    "clear:dist": "rm -rf dist",
+    "copy:pkg": "cp package.json dist/package.json"
   },
   "repository": {
     "type": "git",
@@ -38,69 +35,28 @@
   },
   "homepage": "https://github.com/lelivrescolaire/react-light-calendar#readme",
   "dependencies": {
-    "lodash.times": "4.3.2",
-    "prop-types": "15.6.2",
+    "lodash": "4.17.11",
+    "prop-types": "15.7.2",
     "timestamp-utils": "2.1.0"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "3.3.14",
-    "@storybook/addon-links": "3.3.14",
-    "@storybook/addons": "3.3.14",
-    "@storybook/react": "3.3.14",
-    "@storybook/storybook-deployer": "2.3.0",
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.0",
-    "babel-eslint": "8.2.3",
-    "babel-plugin-external-helpers": "6.22.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-es2015-rollup": "3.0.0",
-    "babel-preset-latest": "6.24.1",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-stage-0": "6.24.1",
-    "chai": "4.1.2",
-    "enzyme": "3.3.0",
-    "enzyme-adapter-react-16": "1.1.1",
-    "eslint": "4.19.0",
-    "eslint-config-standard": "11.0.0",
-    "eslint-plugin-import": "2.12.0",
-    "eslint-plugin-node": "6.0.1",
-    "eslint-plugin-promise": "3.7.0",
-    "eslint-plugin-react": "7.8.2",
-    "eslint-plugin-standard": "3.1.0",
-    "husky": "1.1.4",
-    "identity-obj-proxy": "3.0.0",
-    "jest": "23.0.0",
-    "jest-environment-enzyme": "6.0.1",
-    "jest-enzyme": "6.0.1",
-    "react": "16.3.0",
-    "react-dom": "16.3.0",
-    "react-test-renderer": "15.6.1",
-    "rollup": "0.59.1",
-    "rollup-plugin-auto-external": "1.2.0",
-    "rollup-plugin-babel": "3.0.4",
-    "rollup-plugin-commonjs": "9.1.3",
-    "rollup-plugin-node-resolve": "3.3.0",
-    "rollup-plugin-postcss": "1.6.1",
-    "rollup-plugin-uglify": "4.0.0",
-    "sinon": "5.0.10",
-    "size-limit": "0.18.1"
+    "@babel/core": "7.5.0",
+    "@babel/plugin-proposal-class-properties": "7.5.0",
+    "@babel/preset-env": "7.5.0",
+    "@storybook/react": "5.1.9",
+    "babel-loader": "8.0.6",
+    "css-loader": "3.0.0",
+    "mini-css-extract-plugin": "0.7.0",
+    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "size-limit": "1.3.7",
+    "uglifyjs-webpack-plugin": "2.1.3",
+    "webpack": "4.35.2",
+    "webpack-bundle-analyzer": "^3.3.2",
+    "webpack-cli": "3.3.5"
   },
   "peerDependencies": {
-    "react": ">=16.3.0",
-    "react-dom": ">=16.3.0"
-  },
-  "jest": {
-    "setupFiles": [
-      "./test/jestsetup.js"
-    ],
-    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
-    "testEnvironment": "enzyme",
-    "testEnvironmentOptions": {
-      "enzymeAdapter": "react16"
-    },
-    "moduleNameMapper": {
-      "\\.css$": "identity-obj-proxy"
-    }
+    "react": ">=16.8.6",
+    "react-dom": ">=16.8.6"
   },
   "husky": {
     "hooks": {

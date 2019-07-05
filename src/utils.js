@@ -1,4 +1,4 @@
-import times from 'lodash.times'
+import times from 'lodash/times'
 import t from 'timestamp-utils'
 
 const DAYS_TO_DISPLAY_PER_MONTH = 42

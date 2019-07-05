@@ -26,34 +26,30 @@
 
 ## Navigation 🗺️ :
 
-<!-- TOC -->
-
 - [@lls/react-light-calendar](#llsreact-light-calendar)
-  - [Navigation 🗺️ :](#navigation-🗺️-)
-  - [Why 🤔](#why-🤔)
-  - [How to use ✍️](#how-to-use-✍️)
-  - [Demo 👀](#demo-👀)
-  - [Compatibility ✅](#compatibility-✅)
+  - [Navigation 🗺️ :](#Navigation-️-)
+  - [Why 🤔](#Why-)
+  - [How to use ✍️](#How-to-use-️)
+  - [Demo 👀](#Demo-)
+  - [Compatibility ✅](#Compatibility-)
     - [react / react-dom](#react--react-dom)
-    - [Browsers](#browsers)
-  - [Changelog 🗒️](#changelog-🗒️)
-  - [API 📖](#api-📖)
-    - [startDate](#startdate)
-    - [endDate](#enddate)
-    - [onChange](#onchange)
-    - [disableDates](#disabledates)
-    - [displayTime](#displaytime)
-    - [dayLabels](#daylabels)
-    - [monthLabels](#monthlabels)
+    - [Browsers](#Browsers)
+  - [Changelog 🗒️](#Changelog-️)
+  - [API 📖](#API-)
+    - [startDate](#startDate)
+    - [endDate](#endDate)
+    - [onChange](#onChange)
+    - [disableDates](#disableDates)
+    - [displayTime](#displayTime)
+    - [dayLabels](#dayLabels)
+    - [monthLabels](#monthLabels)
     - [timezone](#timezone)
-  - [Examples 📋](#examples-📋)
-    - [Basic example](#basic-example)
-    - [Good practice example](#good-practice-example)
-    - [Input example](#input-example)
-  - [Development 💻](#development-💻)
-  - [License 🖋](#license-🖋)
-
-<!-- /TOC -->
+  - [Examples 📋](#Examples-)
+    - [Basic example](#Basic-example)
+    - [Good practice example](#Good-practice-example)
+    - [Input example](#Input-example)
+  - [Development 💻](#Development-)
+  - [License 🖋](#License-)
 
 ## Why 🤔
 
@@ -245,14 +241,14 @@ class Calendar extends Component {
 
 The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
 
-A fully example is available [here](./examples/GOODPRACTICE.md).
+A fully example is available [here](./docs/examples/GOODPRACTICE.md).
 
 ---------------------------------------
 
 ### Input example
 
 `react-light-component` is delivered with only one component : a calendar.
-If you want to use it like a datetime input, you can follow this [examples](./example/INPUT.md).
+If you want to use it like a datetime input, you can follow this [examples](./docs/example/INPUT.md).
 
 ![](./images/image-2.gif)
 

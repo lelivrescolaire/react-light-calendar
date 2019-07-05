@@ -1,7 +1,6 @@
 [
   {
     limit: "3.5 KB",
-    path: "dist/index.js",
-    webpack: false
+    path: "dist/index.js"
   }
 ]

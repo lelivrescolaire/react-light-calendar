@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import t from 'timestamp-utils'
 import { storiesOf } from '@storybook/react'
-import Calendar from '../index'
+import Calendar from '../src/index'
 
 const DefaultValues = () => {
   const date = new Date()
