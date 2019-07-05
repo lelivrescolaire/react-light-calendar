@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { formartTime } from '../utils'
-import times from 'lodash/times'
+import times from 'lodash.times'
 import { bool, arrayOf, string, number, func } from 'prop-types'
 import t from 'timestamp-utils'
 

@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
-import { initMonth, parseRange, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
+import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 import t from 'timestamp-utils'
 
 // Components
-import Header from './Header'
-import DaysLabels from './DaysLabels'
-import Days from './Days'
+import DateDetails from './DateDetails'
 import Navigation from './Navigation'
 
 // Styles
@@ -71,26 +69,46 @@ class Calendar extends PureComponent {
 
     return (
       <div className="rlc-calendar" {...props}>
-        <Header
-          startDate={sDate}
-          endDate={eDate}
-          dayLabels={dayLabels}
-          monthLabels={monthLabels}
-          displayTime={displayTime}
-          update={this.update}
-        />
+        <div className="rlc-details">
+          {sDate &&
+            <DateDetails
+              dayLabels={dayLabels}
+              monthLabels={monthLabels}
+              date={sDate}
+              displayTime={displayTime}
+              onTimeChange={date => this.update({ startDate: date })}
+            />
+          }
+          {eDate &&
+            <DateDetails
+              dayLabels={dayLabels}
+              monthLabels={monthLabels}
+              date={eDate}
+              displayTime={displayTime}
+              onTimeChange={date => this.update({ endDate: date })}
+            />
+          }
+        </div>
         <Navigation
           monthLabels={monthLabels}
           month={month}
           year={year}
           onChange={this.changeMonth}
         />
-        <DaysLabels dayLabels={dayLabels} />
-        <Days
-          firstDayToDisplay={firstDayToDisplay}
-          onClick={this.onClickDay}
-          disableDates={disableDates}
-        />
+        <div className="rlc-days-label">
+          {dayLabels.map(label => <div className="rlc-day-label" key={label.toLowerCase()}>{label.slice(0, 2)}</div>)}
+        </div>
+        <div className="rlc-days">
+          {getDays(firstDayToDisplay).map(day =>
+            <div
+              className={`rlc-day ${this.getClassNames(day)}`}
+              key={day}
+              onClick={() => !disableDates(day) && this.onClickDay(day)}
+            >
+              {parseInt(t.getDay(day), 10)}
+            </div>
+          )}
+        </div>
       </div>
     )
   }
