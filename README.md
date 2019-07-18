@@ -119,7 +119,7 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 
 ## Changelog 🗒️
 
-* `2.0.5` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
+* `2.0.6` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
 
 ---------------------------------------
 

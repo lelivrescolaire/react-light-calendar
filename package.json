@@ -1,6 +1,6 @@
 {
   "name": "@lls/react-light-calendar",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "🗓 A lightweight calendar for React (~3 kb)",
   "main": "dist/index.js",
   "files": [
@@ -10,7 +10,7 @@
     "lint": "$(npm bin)/eslint src",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook",
-    "build": "rm -rf dist && rollup -c && cp package.json dist/package.json",
+    "build": "rm -rf dist && rollup -c",
     "size": "npm run build && size-limit",
     "test": "jest",
     "deploy-storybook": "storybook-to-ghpages",
