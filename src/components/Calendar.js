@@ -11,15 +11,22 @@ import Navigation from './Navigation'
 import './index.css'
 
 class Calendar extends PureComponent {
-  state = {}
-
-  static getDerivedStateFromProps ({ timezone, startDate, endDate }) {
-    t.setTimezone(timezone)
-    return ({
-      ...initMonth(startDate),
-      ...parseRange(startDate, endDate)
-    })
+  constructor (props) {
+    super(props)
+    t.setTimezone(props.timezone)
+    this.state = this.getInitialState(props)
   }
+
+  componentDidUpdate = prevProps => {
+    const { timezone, startDate, endDate } = this.props
+    if (timezone !== prevProps.timezone) t.setTimezone(timezone)
+    if (startDate !== prevProps.startDate || endDate !== prevProps.endDate) this.setState(this.getInitialState(this.props))
+  }
+
+  getInitialState = ({ startDate, endDate }) => ({
+    ...initMonth(startDate),
+    ...parseRange(startDate, endDate)
+  })
 
   onClickDay = day => {
     const { startDate, endDate } = this.state
