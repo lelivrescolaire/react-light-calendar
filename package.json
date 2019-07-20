@@ -7,12 +7,11 @@
     "/dist"
   ],
   "scripts": {
-    "start": "start-storybook -p 9009",
+    "start": "start-storybook -p 9001 -c .storybook",
     "build": "npm run clear:dist && $(npm bin)/rollup -c",
     "build-storybook": "build-storybook",
     "size": "npm run build && $(npm bin)/size-limit",
-    "clear:dist": "rm -rf dist",
-    "copy:pkg": "cp package.json dist/package.json"
+    "clear:dist": "rm -rf dist"
   },
   "repository": {
     "type": "git",
@@ -45,7 +44,10 @@
     "@babel/preset-env": "7.5.0",
     "@babel/preset-react": "7.0.0",
     "@storybook/react": "5.1.9",
+    "babel-loader": "8.0.6",
     "babel-plugin-transform-react-remove-prop-types": "0.4.24",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
     "rollup": "1.16.6",
     "rollup-plugin-auto-external": "2.0.0",
     "rollup-plugin-babel": "4.3.3",

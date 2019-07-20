@@ -40,8 +40,7 @@ export default {
       },
       compress: {
         pure_getters: true,
-        unsafe: false,
-        warnings: false
+        unsafe: false
       }
     }),
     visualizer()
