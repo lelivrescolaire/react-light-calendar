@@ -9,7 +9,7 @@
 
 ![](https://travis-ci.org/lelivrescolaire/react-light-calendar.svg?branch=master)
 [![Bundlephobia](https://badgen.net/bundlephobia/minzip/@lls/react-light-calendar)](https://bundlephobia.com/result?p=@lls/react-light-calendar@1.0.0)
-[![npm version](https://badge.fury.io/js/@lls/react-light-calendar.svg)](https://badge.fury.io/js/@lls/react-light-calendar)
+[![npm version](https://img.shields.io/npm/v/@lls/react-light-calendar.svg)](https://badge.fury.io/js/%40lls%2Freact-light-calendar)
 
 </div>
 
@@ -35,6 +35,10 @@
     - [react / react-dom](#react--react-dom)
     - [Browsers](#Browsers)
   - [Changelog 🗒️](#Changelog-️)
+  - [Examples 📋](#Examples-)
+    - [Basic example](#Basic-example)
+    - [Good practice example](#Good-practice-example)
+    - [Input example](#Input-example)
   - [API 📖](#API-)
     - [startDate](#startDate)
     - [endDate](#endDate)
@@ -44,12 +48,10 @@
     - [dayLabels](#dayLabels)
     - [monthLabels](#monthLabels)
     - [timezone](#timezone)
-  - [Examples 📋](#Examples-)
-    - [Basic example](#Basic-example)
-    - [Good practice example](#Good-practice-example)
-    - [Input example](#Input-example)
   - [Development 💻](#Development-)
   - [License 🖋](#License-)
+
+<!-- /TOC -->
 
 ## Why 🤔
 
@@ -86,7 +88,9 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 ## Demo 👀
 
-A [storybook](https://github.com/storybooks/storybook) demo is available [here](https://lelivrescolaire.github.io/react-light-calendar/?selectedKind=Calendar&selectedStory=onChange&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel).
+* [Storybook](https://lelivrescolaire.github.io/react-light-calendar/?selectedKind=Calendar&selectedStory=onChange&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
+
+* [Codesandbox](https://codesandbox.io/s/llsreact-light-calendar-example-cpswp)
 
 ## Compatibility ✅
 
@@ -112,6 +116,59 @@ According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS
 ---------------------------------------
 
 ## Changelog 🗒️
+
+* `2.0.6` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
+
+---------------------------------------
+
+## Examples 📋
+
+### Basic example
+
+```javascript
+import ReactLightCalendar from '@lls/react-light-calendar'
+import '@lls/react-light-calendar/dist/index.css'
+
+const DAY_LABELS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+const MONTH_LABELS = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aûot', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+
+class Calendar extends Component {
+  constructor(props) {
+    super(props)
+    const date = new Date()
+    const startDate = date.getTime()
+    this.state = {
+      startDate, // Today
+      endDate: new Date(startDate).setDate(date.getDate() + 6) // Today + 6 days
+    }
+  }
+
+  onChange = (startDate, endDate) => this.setState({ startDate, endDate })
+
+  render = () => {
+    const { startDate, endDate } = this.state
+
+    return (
+        <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
+    )
+  }
+}
+```
+
+### Good practice example
+
+The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
+
+A fully example is available [here](./examples/GOODPRACTICE.md).
+
+---------------------------------------
+
+### Input example
+
+`react-light-component` is delivered with only one component : a calendar.
+If you want to use it like a datetime input, you can follow this [examples](./example/INPUT.md).
+
+![](./images/image-2.gif)
 
 ---------------------------------------
 
@@ -201,56 +258,7 @@ Months name, starting with January.
 
 Calendar timezone.
 
-## Examples 📋
-
-### Basic example
-
-```javascript
-import ReactLightCalendar from '@lls/react-light-calendar'
-import '@lls/react-light-calendar/dist/index.css'
-
-const DAY_LABELS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-const MONTH_LABELS = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aûot', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
-
-class Calendar extends Component {
-  constructor(props) {
-    super(props)
-    const date = new Date()
-    const startDate = date.getTime()
-    this.state = {
-      startDate, // Today
-      endDate: new Date(startDate).setDate(date.getDate() + 6) // Today + 6 days
-    }
-  }
-
-  onChange = (startDate, endDate) => this.setState({ startDate, endDate })
-
-  render = () => {
-    const { startDate, endDate } = this.state
-
-    return (
-        <ReactLightCalendar startDate={startDate} endDate={endDate} onChange={this.onChange} range displayTime />
-    )
-  }
-}
-```
-
 ---------------------------------------
-
-### Good practice example
-
-The best way to avoid massive code and code duplication is to create a `Calendar` composant based on `react-light-component` and use it where you want.
-
-A fully example is available [here](./docs/examples/GOODPRACTICE.md).
-
----------------------------------------
-
-### Input example
-
-`react-light-component` is delivered with only one component : a calendar.
-If you want to use it like a datetime input, you can follow this [examples](./docs/example/INPUT.md).
-
-![](./images/image-2.gif)
 
 ## Development 💻
 
@@ -273,6 +281,8 @@ npm run build
 // 👀 Keep an eye on the bundle size
 npm run size
 ```
+
+---------------------------------------
 
 ## License 🖋
 
