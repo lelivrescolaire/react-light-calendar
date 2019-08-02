@@ -33,7 +33,7 @@
   - [Demo 👀](#Demo-)
   - [Compatibility ✅](#Compatibility-)
     - [react / react-dom](#react--react-dom)
-    - [Browsers](#Browsers)
+    - [Browsers 🌍](#Browsers-)
   - [Changelog 🗒️](#Changelog-️)
   - [Examples 📋](#Examples-)
     - [Basic example](#Basic-example)
@@ -55,7 +55,7 @@
 
 ## Why 🤔
 
-Because most calendar components depend on **heavy** date library. This make the bundle become **very big** and if forces you to his **date library dependence**.
+Because most calendar components depend on **heavy** date library. This make the bundle become **very big** and forces you to use it's **date library dependence**.
 This can be a huge problem on big projects that already have had **a lot of dependencies**, especially for projects that use **another date library**.
 
 The purpose of `@lls/react-light-calendar` is to propose a **minimalistic** and **powerful** component to be able to be used on any project.
@@ -101,22 +101,27 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 | @lls/react-light-calendar | react / react-dom |
 |:------------------------- |:------------------|
+| 3.x                       | >= 16.8.6         |
+| 2.x                       | >= 16.3.0         |
 | 1.x                       | >= 16.3.0         |
 
 ---------------------------------------
 
-### Browsers
+### Browsers 🌍
 
-According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS).
+* 🌍Chrome 42+
+* 🦊Firefox 37+
+* 🧭 Safari 8+
+* 🐌Internet Explorer 10+
+* 🌍Microsoft Edge
 
-| Chrome 42 | Firefox 37 | Safari 8 | Internet Explorer 10 | Microsoft Edge |
-|:--------- |:-----------|:---------|:---------------------|:---------------|
-| ✅        | ✅        | ✅       | ✅                   | ✅             |
+*According to [BrowseEmAll](https://www.browseemall.com/Compatibility/ValidateCSS).*
 
 ---------------------------------------
 
 ## Changelog 🗒️
 
+* `3.0.0` : Update dependencies (react@16.8.6 ...)
 * `2.0.6` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
 
 ---------------------------------------
@@ -249,6 +254,8 @@ Days name, starting with Monday.
 * Available since : *v1.0.0*
 
 Months name, starting with January.
+
+---------------------------------------
 
 ### timezone
 * Type : *String*

@@ -10,7 +10,7 @@ import Navigation from './Navigation'
 // Styles
 import './index.css'
 
-class Calendar extends PureComponent {
+class Calendar extends Component {
   constructor (props) {
     super(props)
     t.setTimezone(props.timezone)
@@ -75,7 +75,7 @@ class Calendar extends PureComponent {
     return (
       <div className="rlc-calendar">
         <div className="rlc-details">
-          {sDate &&
+          {!!sDate &&
             <DateDetails
               dayLabels={dayLabels}
               monthLabels={monthLabels}
@@ -84,7 +84,7 @@ class Calendar extends PureComponent {
               onTimeChange={date => this.update({ startDate: date })}
             />
           }
-          {eDate &&
+          {!!eDate &&
             <DateDetails
               dayLabels={dayLabels}
               monthLabels={monthLabels}

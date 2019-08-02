@@ -4,9 +4,7 @@
   font-family: 'Roboto', sans-serif;
   width: 280px;
   border: 1px solid #E5E5E5;
-  -webkit-box-shadow: 0px 0px 13px -4px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 13px -4px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 13px -4px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
   color: #565656;
 }
 
@@ -25,8 +23,6 @@
 
 .rlc-day-label, .rlc-day{
   display: inline-flex;
-  display: -ms-inline-flex;
-  display: -webkit-inline-flex;
   justify-content: space-around;
   align-items: center;
   width: 40px;
@@ -38,9 +34,6 @@
 .rlc-day{
   cursor: pointer;
   user-select: none;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
 }
 
 .rlc-day-today{
@@ -103,8 +96,6 @@
 
 .rlc-month-and-year-wrapper{
   display: flex;
-  display: -ms-flex;
-  display: -webkit-flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #E5E5E5;
@@ -121,13 +112,9 @@
 
 .rlc-navigation-button-wrapper{
   display: flex;
-  display: -ms-flex;
-  display: -webkit-flex;
   justify-content: space-around;
   flex-grow: 1;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
+  user-select: none;
 }
 
 .rlc-navigation-button{
@@ -136,8 +123,6 @@
 
 .rlc-details{
   display: flex;
-  display: -ms-flex;
-  display: -webkit-flex;
   justify-content: space-between;
 }
 
@@ -148,8 +133,6 @@
 
 .rlc-date-details{
   display: flex;
-  display: -ms-flex;
-  display: -webkit-flex;
   align-items: center;
   flex-grow: 1;
 }

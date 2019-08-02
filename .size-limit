@@ -1,10 +1,12 @@
 [
   {
-    limit: "3.5 KB",
-    path: [
-      "dist/index.js",
-      "dist/index.css"
-    ],
+    limit: "3 KB",
+    path: "dist/index.js",
+    webpack: false
+  },
+  {
+    limit: "1 KB",
+    path: "dist/index.css",
     webpack: false
   }
 ]

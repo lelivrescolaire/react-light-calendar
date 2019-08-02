@@ -4,7 +4,7 @@ import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
 import { uglify } from 'rollup-plugin-uglify'
-import visualizer from 'rollup-plugin-visualizer'
+import autoprefixer from 'autoprefixer'
 
 import pkg from './package.json'
 
@@ -18,6 +18,7 @@ export default {
   ],
   plugins: [
     postcss({
+      plugins: [autoprefixer],
       minimize: true,
       extract: true
     }),
@@ -42,7 +43,6 @@ export default {
         pure_getters: true,
         unsafe: false
       }
-    }),
-    visualizer()
+    })
   ],
 }
