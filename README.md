@@ -101,7 +101,6 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 | @lls/react-light-calendar | react / react-dom |
 |:------------------------- |:------------------|
-| 3.x                       | >= 16.8.6         |
 | 2.x                       | >= 16.3.0         |
 | 1.x                       | >= 16.3.0         |
 
@@ -121,7 +120,6 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 ## Changelog 🗒️
 
-* `3.0.0` : Update dependencies (react@16.8.6 ...)
 * `2.0.6` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
 
 ---------------------------------------
