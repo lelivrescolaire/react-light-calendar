@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
-import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 import t from 'timestamp-utils'
+import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 
 // Components
 import DateDetails from './DateDetails'
@@ -20,7 +20,8 @@ class Calendar extends Component {
   componentDidUpdate = prevProps => {
     const { timezone, startDate, endDate } = this.props
     if (timezone !== prevProps.timezone) t.setTimezone(timezone)
-    if (startDate !== prevProps.startDate || endDate !== prevProps.endDate) this.setState(this.getInitialState(this.props))
+    if (startDate !== prevProps.startDate || endDate !== prevProps.endDate)
+      this.setState(this.getInitialState(this.props))
   }
 
   getInitialState = ({ startDate, endDate }) => ({
