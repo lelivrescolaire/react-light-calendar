@@ -4,24 +4,26 @@
 
 As said, `@lls/react-light-calendar` doest propose input date component, but it still can be easily implemented with **pure CSS** or **JS** :
 
-## Pure CSS example : 
+## Pure CSS example :
 ⚠️ Don't forget `tabIndex` attributs to enable `focus` and `blur` events.
 
 ```javascript
 const InputCSS = () =>
   <div className='input-example' tabIndex={0}>
     <input type='text' className='input-text'/>
-    <Calendar tabIndex={1} />
+    <div tabIndex={0} className='calendar-wrapper'>
+      <Calendar />
+    </div>
   </div>
 ```
 
 ```css
 .input-example { display: inline-block }
-.rlc-calendar { display: none }
-.input-text:focus+.rlc-calendar, .rlc-calendar:active, .rlc-calendar:focus { display: block }
+.calendar-wrapper { display: none }
+.input-text:focus+.calendar-wrapper, .calendar-wrapper:active, .calendar-wrapper:focus { display: block }
 ```
 
-## JS example : 
+## JS example :
 
 ```javacript
 class InputJS extends Component {
@@ -31,7 +33,7 @@ class InputJS extends Component {
   }
 
   open = () => this.setState({ isOpen: true })
-  
+
   close = e => {
     !e.currentTarget.contains(window.document.activeElement) && this.setState({ isOpen: false })
   }
