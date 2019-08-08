@@ -1,6 +1,6 @@
 <div align="center">
 
-![](./images/logo-rlc.png)
+![](./docs/images/logo-rlc.png)
 
 # @lls/react-light-calendar
 
