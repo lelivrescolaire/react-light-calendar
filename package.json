@@ -13,7 +13,10 @@
     "size": "npm run build && $(npm bin)/size-limit",
     "clear:dist": "rm -rf dist",
     "test": "$(npm bin)/jest",
-    "lint": "$(npm bin)/eslint src"
+    "lint": "$(npm bin)/eslint src",
+    "deploy-storybook": "storybook-to-ghpages",
+    "prepublishOnly": "npm run lint && npm run test && npm run build && npm run size",
+    "postpublish": "npm run deploy-storybook"
   },
   "repository": {
     "type": "git",
@@ -46,6 +49,7 @@
     "@babel/preset-env": "7.5.5",
     "@babel/preset-react": "7.0.0",
     "@storybook/react": "5.1.10",
+    "@storybook/storybook-deployer": "2.8.1",
     "autoprefixer": "9.6.1",
     "babel-eslint": "10.0.2",
     "babel-loader": "8.0.6",
