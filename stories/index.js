@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import t from 'timestamp-utils'
 import { storiesOf } from '@storybook/react'
-import Calendar from '../index'
+import Calendar from '../src/index'
 
 const DefaultValues = () => {
   const date = new Date()
@@ -44,12 +44,14 @@ const InputCSS = () =>
   <div>
     <style dangerouslySetInnerHTML={{ __html: `
       .input-example { display: inline-block }
-      .rlc-calendar { display: none }
-      .input-text:focus+.rlc-calendar, .rlc-calendar:active, .rlc-calendar:focus { display: block }
+      .calendar-wrapper { display: none }
+      .input-text:focus+.calendar-wrapper, .calendar-wrapper:active, .calendar-wrapper:focus { display: block }
     `}}/>
     <div className='input-example' tabIndex={0}>
       <input type='text' className='input-text'/>
-      <Calendar tabIndex={1} />
+      <div tabIndex={0} className='calendar-wrapper'>
+        <Calendar />
+      </div>
     </div>
   </div>
 

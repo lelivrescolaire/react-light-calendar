@@ -1,36 +1,39 @@
 import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
+import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
+import resolve from 'rollup-plugin-node-resolve'
 import { uglify } from 'rollup-plugin-uglify'
-import autoExternal from 'rollup-plugin-auto-external'
+import autoprefixer from 'autoprefixer'
+
+import pkg from './package.json'
 
 export default {
   input: 'src/index.js',
-  output: {
-    file: 'dist/index.js',
-    format: 'cjs'
-  },
+  output: [
+    {
+      file: pkg.main,
+      format: 'cjs',
+    }
+  ],
   plugins: [
     postcss({
-      extract: true,
-      minimize: true
+      plugins: [autoprefixer],
+      minimize: true,
+      extract: true
     }),
-    autoExternal({
-      dependencies: true
+    external({
+      includeDependencies: true
     }),
     resolve(),
-    commonjs({
-      include: ['node_modules/**'],
-      namedExports: {
-        'node_modules/react/index.js': ['Component'],
-        'node_modules/prop-types/index.js': ['number', 'func', 'bool', 'arrayOf', 'object', 'string'],
-      }
-    }),
     babel({
-      exclude: 'node_modules/**',
-      plugins: ['external-helpers']
+      plugins: [
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-proposal-class-properties'
+      ],
+      exclude: 'node_modules/**'
     }),
+    commonjs(),
     uglify({
       toplevel: true,
       output: {
@@ -38,9 +41,8 @@ export default {
       },
       compress: {
         pure_getters: true,
-        unsafe: false,
-        warnings: false
+        unsafe: false
       }
     })
-  ]
+  ],
 }

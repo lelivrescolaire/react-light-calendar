@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { number, func, bool, arrayOf, string } from 'prop-types'
-import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 import t from 'timestamp-utils'
+import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 
 // Components
 import DateDetails from './DateDetails'
@@ -10,7 +10,7 @@ import Navigation from './Navigation'
 // Styles
 import './index.css'
 
-class Calendar extends PureComponent {
+class Calendar extends Component {
   constructor (props) {
     super(props)
     t.setTimezone(props.timezone)
@@ -20,7 +20,8 @@ class Calendar extends PureComponent {
   componentDidUpdate = prevProps => {
     const { timezone, startDate, endDate } = this.props
     if (timezone !== prevProps.timezone) t.setTimezone(timezone)
-    if (startDate !== prevProps.startDate || endDate !== prevProps.endDate) this.setState(this.getInitialState(this.props))
+    if (startDate !== prevProps.startDate || endDate !== prevProps.endDate)
+      this.setState(this.getInitialState(this.props))
   }
 
   getInitialState = ({ startDate, endDate }) => ({
@@ -64,20 +65,18 @@ class Calendar extends PureComponent {
       [`rlc-day-${day}`]: true
     }
 
-    const classnames = Object.entries(conditions)
+    return Object.entries(conditions)
       .reduce((prev, [className, valid]) => valid ? `${prev} ${className}` : prev, '')
-
-    return classnames || 'Day_default'
   }
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { startDate, endDate, onChange, disableDates, displayTime, dayLabels, monthLabels, timezone, ...props } = this.props
+    const { disableDates, displayTime, dayLabels, monthLabels } = this.props
 
     return (
-      <div className="rlc-calendar" {...props}>
+      <div className="rlc-calendar">
         <div className="rlc-details">
-          {sDate &&
+          {!!sDate &&
             <DateDetails
               dayLabels={dayLabels}
               monthLabels={monthLabels}
@@ -86,7 +85,7 @@ class Calendar extends PureComponent {
               onTimeChange={date => this.update({ startDate: date })}
             />
           }
-          {eDate &&
+          {!!eDate &&
             <DateDetails
               dayLabels={dayLabels}
               monthLabels={monthLabels}
