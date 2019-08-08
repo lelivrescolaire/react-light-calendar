@@ -26,7 +26,7 @@ export const initMonth = timestamp => {
 }
 
 export const parseRange = (startDate, endDate) => ({
-  startDate: endDate ? Math.min(startDate, endDate) : startDate,
+  startDate: endDate ? startDate ? Math.min(startDate, endDate) : null : startDate,
   endDate: endDate && (endDate !== startDate) ? Math.max(startDate, endDate) : null
 })
 

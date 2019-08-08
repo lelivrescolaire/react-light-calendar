@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut,
   getDateWithoutTime } from '../src/utils'
 import { expect } from 'chai'
