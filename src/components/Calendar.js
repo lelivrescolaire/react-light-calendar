@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { number, func, bool, arrayOf, string } from 'prop-types'
+import { number, func, bool, arrayOf, string, object } from 'prop-types'
 import t from 'timestamp-utils'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 
@@ -71,10 +71,10 @@ class Calendar extends Component {
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { disableDates, displayTime, dayLabels, monthLabels } = this.props
+    const { disableDates, displayTime, dayLabels, monthLabels, style } = this.props
 
     return (
-      <div className="rlc-calendar">
+      <div className="rlc-calendar" style={{...style}}>
         <div className="rlc-details">
           {!!sDate &&
             <DateDetails
@@ -128,7 +128,8 @@ Calendar.defaultProps = {
   displayTime: false,
   dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  timezone: 'UTC'
+  timezone: 'UTC',
+  style: {}
 }
 
 Calendar.propTypes = {
@@ -139,7 +140,8 @@ Calendar.propTypes = {
   displayTime: bool,
   dayLabels: arrayOf(string),
   monthLabels: arrayOf(string),
-  timezone: string
+  timezone: string,
+  style: object
 }
 
 export default Calendar
