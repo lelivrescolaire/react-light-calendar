@@ -83,7 +83,8 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 <Calendar startDate={startDate} onChange={this.onChange} />
 ```
 
-❗️Notice the style `import`. If you want to use a custom style, just remove this line and use your own style.
+❗️**Notice the style `import`. If you want to use a custom style, just remove this line and use your own style.**
+❗️**Most important elements of `react-light-calendar` have a class, so you can use them to override the current style.**
 
 
 ## Demo 👀
