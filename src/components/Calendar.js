@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { number, func, bool, arrayOf, string } from 'prop-types'
+import { number, func, bool, arrayOf, string, oneOfType } from 'prop-types'
 import t from 'timestamp-utils'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 
@@ -53,7 +53,11 @@ class Calendar extends Component {
     const { disableDates, markedDays } = this.props
     const sDate = getDateWithoutTime(startDate)
     const eDate = getDateWithoutTime(endDate)
-    const mDays = markedDays !== null ? markedDays.map(d => getDateWithoutTime(d)) : [];
+    const mDays = typeof markedDays === 'function'
+      ? markedDays(day)
+      : markedDays !== null
+        ? markedDays.map(d => getDateWithoutTime(d)).includes(day)
+        : false;
 
     const conditions = {
       'rlc-day-disabled': disableDates(day),
@@ -64,7 +68,7 @@ class Calendar extends Component {
       'rlc-day-start-selection': endDate && (sDate === day),
       'rlc-day-end-selection': endDate && (eDate === day),
       [`rlc-day-${day}`]: true,
-      'rlc-day-marked': mDays.includes(day)
+      'rlc-day-marked': mDays
     }
 
     return Object.entries(conditions)
@@ -143,7 +147,7 @@ Calendar.propTypes = {
   dayLabels: arrayOf(string),
   monthLabels: arrayOf(string),
   timezone: string,
-  markedDays: arrayOf(number)
+  markedDays: oneOfType([arrayOf(number), func])
 }
 
 export default Calendar
