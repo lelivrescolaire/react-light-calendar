@@ -77,7 +77,7 @@ class Calendar extends Component {
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { disableDates, displayTime, dayLabels, monthLabels } = this.props
+    const { disableDates, displayTime, dayLabels, monthLabels, onClickDate } = this.props
 
     return (
       <div className="rlc-calendar">
@@ -115,7 +115,11 @@ class Calendar extends Component {
             <div
               className={`rlc-day ${this.getClassNames(day)}`}
               key={day}
-              onClick={() => !disableDates(day) && this.onClickDay(day)}
+              onClick={() => {
+                onClickDate(day)
+
+                return !disableDates(day) && this.onClickDay(day)}
+              }
             >
               {parseInt(t.getDay(day), 10)}
             </div>
@@ -135,7 +139,8 @@ Calendar.defaultProps = {
   dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   timezone: 'UTC',
-  markedDays: () => false
+  markedDays: () => false,
+  onClickDate: () => {}
 }
 
 Calendar.propTypes = {
@@ -147,7 +152,8 @@ Calendar.propTypes = {
   dayLabels: arrayOf(string),
   monthLabels: arrayOf(string),
   timezone: string,
-  markedDays: oneOfType([arrayOf(number), func])
+  markedDays: oneOfType([arrayOf(number), func]),
+  onClickDate: func
 }
 
 export default Calendar
