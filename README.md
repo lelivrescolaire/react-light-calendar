@@ -265,6 +265,33 @@ Calendar timezone.
 
 ---------------------------------------
 
+### markedDays
+* Type : *Function(date [Int])* or *Array[Number]*
+* Default value : *empty function*
+* Required : *false*
+* Available since : *v2.1.0*
+
+This prop marks the date with the dot below. It can be a function like in `disableDates`. This is useful when you want to mark the days with the events.
+
+Example, mark all passed day :
+
+```javascript
+<Calendar markedDays={date => date < new Date().getTime()} />
+```
+
+mark today and tomorrow :
+
+```javascript
+const today = new Date().getTime()
+const tmr = today + (24*60*60*1000)
+
+...
+
+<Calendar markedDays={[today, tmr]} />
+```
+
+---------------------------------------
+
 ## Development 💻
 
 ```

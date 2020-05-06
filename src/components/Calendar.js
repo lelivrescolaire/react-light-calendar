@@ -55,7 +55,7 @@ class Calendar extends Component {
     const eDate = getDateWithoutTime(endDate)
     const mDays = typeof markedDays === 'function'
       ? markedDays(day)
-      : markedDays !== null
+      : Array.isArray(markedDays)
         ? markedDays.map(d => getDateWithoutTime(d)).includes(day)
         : false;
 
@@ -135,7 +135,7 @@ Calendar.defaultProps = {
   dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   timezone: 'UTC',
-  markedDays: null
+  markedDays: () => false
 }
 
 Calendar.propTypes = {
