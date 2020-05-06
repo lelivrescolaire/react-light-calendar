@@ -50,9 +50,10 @@ class Calendar extends Component {
 
   getClassNames = day => {
     const { firstMonthDay, lastMonthDay, startDate, endDate } = this.state
-    const { disableDates } = this.props
+    const { disableDates, markedDays } = this.props
     const sDate = getDateWithoutTime(startDate)
     const eDate = getDateWithoutTime(endDate)
+    const mDays = markedDays !== null ? markedDays.map(d => getDateWithoutTime(d)) : [];
 
     const conditions = {
       'rlc-day-disabled': disableDates(day),
@@ -62,7 +63,8 @@ class Calendar extends Component {
       'rlc-day-selected': !endDate && (sDate === day),
       'rlc-day-start-selection': endDate && (sDate === day),
       'rlc-day-end-selection': endDate && (eDate === day),
-      [`rlc-day-${day}`]: true
+      [`rlc-day-${day}`]: true,
+      'rlc-day-marked': mDays.includes(day)
     }
 
     return Object.entries(conditions)
@@ -71,7 +73,7 @@ class Calendar extends Component {
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { disableDates, displayTime, dayLabels, monthLabels, markedDays } = this.props
+    const { disableDates, displayTime, dayLabels, monthLabels } = this.props
 
     return (
       <div className="rlc-calendar">
@@ -107,7 +109,7 @@ class Calendar extends Component {
         <div className="rlc-days">
           {getDays(firstDayToDisplay).map(day =>
             <div
-              className={`rlc-day ${this.getClassNames(day)}${markedDays && markedDays.map(x => getDateWithoutTime(x)).includes(day) ? ' marked-day' : ''}`}
+              className={`rlc-day ${this.getClassNames(day)}`}
               key={day}
               onClick={() => !disableDates(day) && this.onClickDay(day)}
             >

@@ -162,7 +162,7 @@
   margin: 0px 5px;
 }
 
-.marked-day::after{
+.rlc-day-marked::after{
   content: "";
   width: 5px;
   height: 5px;
@@ -173,6 +173,6 @@
   position: absolute;
 }
 
-.rlc-day-today.marked-day::after {
+.rlc-day-today.rlc-day-marked::after {
   background-color: white;
 }
