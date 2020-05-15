@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { number, func, bool, arrayOf, string } from 'prop-types'
+import { number, func, bool, arrayOf, string, oneOfType } from 'prop-types'
 import t from 'timestamp-utils'
 import { initMonth, parseRange, getDays, dateIsBetween, dateIsOut, getDateWithoutTime } from '../utils'
 
@@ -50,9 +50,14 @@ class Calendar extends Component {
 
   getClassNames = day => {
     const { firstMonthDay, lastMonthDay, startDate, endDate } = this.state
-    const { disableDates } = this.props
+    const { disableDates, markedDays } = this.props
     const sDate = getDateWithoutTime(startDate)
     const eDate = getDateWithoutTime(endDate)
+    const mDays = typeof markedDays === 'function'
+      ? markedDays(day)
+      : Array.isArray(markedDays)
+        ? markedDays.map(d => getDateWithoutTime(d)).includes(day)
+        : false;
 
     const conditions = {
       'rlc-day-disabled': disableDates(day),
@@ -62,7 +67,8 @@ class Calendar extends Component {
       'rlc-day-selected': !endDate && (sDate === day),
       'rlc-day-start-selection': endDate && (sDate === day),
       'rlc-day-end-selection': endDate && (eDate === day),
-      [`rlc-day-${day}`]: true
+      [`rlc-day-${day}`]: true,
+      'rlc-day-marked': mDays
     }
 
     return Object.entries(conditions)
@@ -71,7 +77,7 @@ class Calendar extends Component {
 
   render = () => {
     const { firstDayToDisplay, startDate: sDate, endDate: eDate, month, year } = this.state
-    const { disableDates, displayTime, dayLabels, monthLabels } = this.props
+    const { disableDates, displayTime, dayLabels, monthLabels, onClickDate } = this.props
 
     return (
       <div className="rlc-calendar">
@@ -109,7 +115,11 @@ class Calendar extends Component {
             <div
               className={`rlc-day ${this.getClassNames(day)}`}
               key={day}
-              onClick={() => !disableDates(day) && this.onClickDay(day)}
+              onClick={() => {
+                onClickDate(day)
+
+                return !disableDates(day) && this.onClickDay(day)}
+              }
             >
               {parseInt(t.getDay(day), 10)}
             </div>
@@ -128,7 +138,9 @@ Calendar.defaultProps = {
   displayTime: false,
   dayLabels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
   monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  timezone: 'UTC'
+  timezone: 'UTC',
+  markedDays: () => false,
+  onClickDate: () => {}
 }
 
 Calendar.propTypes = {
@@ -139,7 +151,9 @@ Calendar.propTypes = {
   displayTime: bool,
   dayLabels: arrayOf(string),
   monthLabels: arrayOf(string),
-  timezone: string
+  timezone: string,
+  markedDays: oneOfType([arrayOf(number), func]),
+  onClickDate: func
 }
 
 export default Calendar

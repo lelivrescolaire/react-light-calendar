@@ -161,3 +161,18 @@
 .rlc-separator{
   margin: 0px 5px;
 }
+
+.rlc-day-marked::after{
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: red;
+  margin-top: 11.5px;
+  z-index: 1;
+  position: absolute;
+}
+
+.rlc-day-today.rlc-day-marked::after {
+  background-color: white;
+}
