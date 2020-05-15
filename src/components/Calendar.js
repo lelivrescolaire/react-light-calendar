@@ -53,11 +53,11 @@ class Calendar extends Component {
     const { disableDates, markedDays } = this.props
     const sDate = getDateWithoutTime(startDate)
     const eDate = getDateWithoutTime(endDate)
-    const mDays = typeof markedDays === 'function'
+    const isMarked = typeof markedDays === 'function'
       ? markedDays(day)
       : Array.isArray(markedDays)
-        ? markedDays.map(d => getDateWithoutTime(d)).includes(day)
-        : false;
+        ? markedDays.map(getDateWithoutTime).includes(day)
+        : false
 
     const conditions = {
       'rlc-day-disabled': disableDates(day),
@@ -68,7 +68,7 @@ class Calendar extends Component {
       'rlc-day-start-selection': endDate && (sDate === day),
       'rlc-day-end-selection': endDate && (eDate === day),
       [`rlc-day-${day}`]: true,
-      'rlc-day-marked': mDays
+      'rlc-day-marked': isMarked
     }
 
     return Object.entries(conditions)
@@ -117,9 +117,8 @@ class Calendar extends Component {
               key={day}
               onClick={() => {
                 onClickDate(day)
-
-                return !disableDates(day) && this.onClickDay(day)}
-              }
+                !disableDates(day) && this.onClickDay(day)
+              }}
             >
               {parseInt(t.getDay(day), 10)}
             </div>
