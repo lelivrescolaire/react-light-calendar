@@ -1,8 +1,6 @@
 import times from 'lodash.times'
 import t from 'timestamp-utils'
 
-const DAYS_TO_DISPLAY_PER_MONTH = 42
-
 const MONTHS_LENGHT = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 const DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24
