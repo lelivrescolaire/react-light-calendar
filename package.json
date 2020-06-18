@@ -1,6 +1,6 @@
 {
   "name": "@lls/react-light-calendar",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "🗓 A lightweight calendar for React (~3 kb)",
   "main": "dist/index.js",
   "files": [
