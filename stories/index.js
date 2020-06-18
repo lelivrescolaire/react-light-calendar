@@ -122,7 +122,7 @@ class MarkedDays extends Component{
 storiesOf('Calendar', module)
   .add('default', () => <Calendar />)
   .add('onChange', () => <OnChange />)
-  .add('default value', () => <Calendar startDate={new Date().getTime()} />)
+  .add('default value', () => <Calendar startDate={718585200000} />)
   .add('default values', () => <DefaultValues />)
   .add('with time', () => <Calendar startDate={new Date().getTime()} displayTime />)
   .add('disable dates', () => <Calendar disableDates={date => date < new Date().getTime()} />)

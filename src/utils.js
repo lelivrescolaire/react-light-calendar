@@ -5,6 +5,8 @@ const DAYS_TO_DISPLAY_PER_MONTH = 42
 
 const MONTHS_LENGHT = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
+const DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24
+
 export const isLeapYear = year => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 
 export const initMonth = timestamp => {
@@ -30,7 +32,12 @@ export const parseRange = (startDate, endDate) => ({
   endDate: endDate && (endDate !== startDate) ? Math.max(startDate, endDate) : null
 })
 
-export const getDays = firstDay => times(DAYS_TO_DISPLAY_PER_MONTH, i => t.addDays(firstDay, i))
+export const getDays = (firstDay, lastDay) => {
+  const lastDayNumber = t.getWeekDay(lastDay)
+  const nextMonthDaysCount = lastDayNumber === 6 ? 0 : (6 - lastDayNumber)
+  const daysCount = ((lastDay - firstDay) / DAY_IN_MILLISECONDS) + nextMonthDaysCount + 1
+  return times(daysCount, i => t.addDays(firstDay, i))
+}
 
 export const getDateWithoutTime = timestamp => {
   const [, , , hours, minutes, seconds, milliseconds] = t.decompose(timestamp)
