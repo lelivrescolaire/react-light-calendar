@@ -121,6 +121,7 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 ## Changelog 🗒️
 
+* `2.2.0` : Only show useful days (https://github.com/lelivrescolaire/react-light-calendar/issues/10)
 * `2.0.6` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
 
 ---------------------------------------
