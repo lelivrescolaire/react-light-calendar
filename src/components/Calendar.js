@@ -24,14 +24,15 @@ class Calendar extends Component {
       this.setState(this.getInitialState(this.props))
   }
 
-  getInitialState = ({ startDate, endDate }) => ({
+  getInitialState = ({ startDate, endDate, range }) => ({
     ...initMonth(startDate),
-    ...parseRange(startDate, endDate)
+    ...parseRange(startDate, range ? endDate  : null)
   })
 
   onClickDay = day => {
     const { startDate, endDate } = this.state
-    if (!startDate) this.update({ startDate: day })
+    const { range } = this.props
+    if (!startDate || !range) this.update({ startDate: day })
     else if (startDate && !endDate) this.update(parseRange(startDate, day))
     else this.update({ startDate: day, endDate: null })
   }
@@ -139,7 +140,8 @@ Calendar.defaultProps = {
   monthLabels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   timezone: 'UTC',
   markedDays: () => false,
-  onClickDate: () => {}
+  onClickDate: () => {},
+  range: true
 }
 
 Calendar.propTypes = {
@@ -152,7 +154,8 @@ Calendar.propTypes = {
   monthLabels: arrayOf(string),
   timezone: string,
   markedDays: oneOfType([arrayOf(number), func]),
-  onClickDate: func
+  onClickDate: func,
+  range: bool
 }
 
 export default Calendar

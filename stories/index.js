@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { bool } from 'prop-types'
 import t from 'timestamp-utils'
 import { storiesOf } from '@storybook/react'
 import Calendar from '../src/index'
@@ -17,7 +18,7 @@ class OnChange extends Component {
     const startDate = date.getTime()
     this.state = {
       startDate,
-      endDate: new Date(startDate).setDate(date.getDate() + 6)
+      endDate: props.range ? new Date(startDate).setDate(date.getDate() + 6) : null
     }
   }
 
@@ -32,12 +33,20 @@ class OnChange extends Component {
 
     return (
       <div>
-        <Calendar startDate={startDate} endDate={endDate} onChange={this.onChange} displayTime />
+        <Calendar startDate={startDate} endDate={endDate} onChange={this.onChange} displayTime range={this.props.range} />
         <div key='start-date'>START DATE : {startDate && sDate}</div>
         <div key='end-date'>END DATE : {endDate && eDate}</div>
       </div>
     )
   }
+}
+
+OnChange.defaultProps = {
+  range: true
+}
+
+OnChange.propTypes = {
+  range: bool
 }
 
 const InputCSS = () =>
@@ -122,6 +131,7 @@ class MarkedDays extends Component{
 storiesOf('Calendar', module)
   .add('default', () => <Calendar />)
   .add('onChange', () => <OnChange />)
+  .add('onChange (no range)', () => <OnChange range={false} />)
   .add('default value', () => <Calendar startDate={718585200000} />)
   .add('default values', () => <DefaultValues />)
   .add('with time', () => <Calendar startDate={new Date().getTime()} displayTime />)

@@ -27,29 +27,31 @@
 ## Navigation 🗺️ :
 
 - [@lls/react-light-calendar](#llsreact-light-calendar)
-  - [Navigation 🗺️ :](#Navigation-️-)
-  - [Why 🤔](#Why-)
-  - [How to use ✍️](#How-to-use-️)
-  - [Demo 👀](#Demo-)
-  - [Compatibility ✅](#Compatibility-)
+  - [Navigation 🗺️ :](#navigation-️-)
+  - [Why 🤔](#why-)
+  - [How to use ✍️](#how-to-use-️)
+  - [Demo 👀](#demo-)
+  - [Compatibility ✅](#compatibility-)
     - [react / react-dom](#react--react-dom)
-    - [Browsers 🌍](#Browsers-)
-  - [Changelog 🗒️](#Changelog-️)
-  - [Examples 📋](#Examples-)
-    - [Basic example](#Basic-example)
-    - [Good practice example](#Good-practice-example)
-    - [Input example](#Input-example)
-  - [API 📖](#API-)
-    - [startDate](#startDate)
-    - [endDate](#endDate)
-    - [onChange](#onChange)
-    - [disableDates](#disableDates)
-    - [displayTime](#displayTime)
-    - [dayLabels](#dayLabels)
-    - [monthLabels](#monthLabels)
+    - [Browsers 🌍](#browsers-)
+  - [Changelog 🗒️](#changelog-️)
+  - [Examples 📋](#examples-)
+    - [Basic example](#basic-example)
+    - [Good practice example](#good-practice-example)
+    - [Input example](#input-example)
+  - [API 📖](#api-)
+    - [startDate](#startdate)
+    - [endDate](#enddate)
+    - [onChange](#onchange)
+    - [disableDates](#disabledates)
+    - [displayTime](#displaytime)
+    - [dayLabels](#daylabels)
+    - [monthLabels](#monthlabels)
     - [timezone](#timezone)
-  - [Development 💻](#Development-)
-  - [License 🖋](#License-)
+    - [markedDays](#markeddays)
+    - [range](#range)
+  - [Development 💻](#development-)
+  - [License 🖋](#license-)
 
 <!-- /TOC -->
 
@@ -121,6 +123,7 @@ import '@lls/react-light-calendar/dist/index.css' // Default Style
 
 ## Changelog 🗒️
 
+* `2.3.0` : Add `range` prop (https://github.com/lelivrescolaire/react-light-calendar/issues/15)
 * `2.2.0` : Only show useful days (https://github.com/lelivrescolaire/react-light-calendar/issues/10)
 * `2.0.6` : Fix month/year navigation (https://github.com/lelivrescolaire/react-light-calendar/issues/6)
 
@@ -291,6 +294,16 @@ const tmr = today + (24*60*60*1000)
 
 <Calendar markedDays={[today, tmr]} />
 ```
+
+---------------------------------------
+
+### range
+* Type : *Boolean*
+* Default value : `true`
+* Required : *false*
+* Available since : *v2.3.0*
+
+If `false` select a single date.
 
 ---------------------------------------
 
