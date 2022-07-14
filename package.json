@@ -41,7 +41,7 @@
   "dependencies": {
     "lodash.times": "4.3.2",
     "prop-types": "15.7.2",
-    "timestamp-utils": "2.1.0"
+    "timestamp-utils": "2.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.5.5",
